@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1792524693826,
+      "tag": "0000_colorful_warbound",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1792527341576,
+      "tag": "0001_blushing_raider",
+      "breakpoints": true
+    }
+  ]
+}
