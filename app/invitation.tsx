@@ -18,7 +18,7 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
  const openingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
  const welcomeRef = useRef<HTMLDivElement>(null);
  const heroTitleRef = useRef<HTMLHeadingElement>(null);
- useInvitationMotion(introResolved && !welcome);
+ useInvitationMotion(introResolved && (opening || !welcome));
  const safeRead = (storage: "localStorage" | "sessionStorage", key:string) => {try{return window[storage].getItem(key)}catch{return null}};
  const safeWrite = (storage: "localStorage" | "sessionStorage", key:string,value:string) => {try{window[storage].setItem(key,value)}catch{}};
  useEffect(()=>{
@@ -56,7 +56,8 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
    safeWrite("sessionStorage","ns-opened","1");setWelcome(false);setOpening(false);openingLock.current=false;
    requestAnimationFrame(()=>heroTitleRef.current?.focus({preventScroll:true}));
   };
-  openingTimer.current=setTimeout(finish,matchMedia("(prefers-reduced-motion: reduce)").matches?0:1900);
+  // Let the envelope and page crossfade finish before removing the dialog.
+  openingTimer.current=setTimeout(finish,matchMedia("(prefers-reduced-motion: reduce)").matches?0:1850);
  }
  function replayOpening(){openingLock.current=false;setOpening(false);setWelcome(true)}
  async function share(){try{if(navigator.share)await navigator.share({title:"Narda & Saúl · Nuestra boda",text:"Nos encantaría compartir este día contigo.",url:location.origin+location.pathname});else{await navigator.clipboard.writeText(location.origin+location.pathname);setToast("Enlace de la invitación copiado.")}}catch(err){if((err as Error).name!=="AbortError")setToast("Comparte la invitación copiando el enlace del navegador.")}}
@@ -72,7 +73,7 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
  async function submitRSVP(event:React.FormEvent<HTMLFormElement>){event.preventDefault();setError("");if(previewOnly){setError("La confirmación aún no está habilitada en esta vista previa. No se ha guardado ninguna respuesta.");return}setSending(true);const fields=new FormData(event.currentTarget);try{let token=guestToken.current||safeRead("localStorage","ns-rsvp-token");if(!token){token=crypto.randomUUID()+crypto.randomUUID();safeWrite("localStorage","ns-rsvp-token",token)}guestToken.current=token;const response=await fetch("/api/rsvp",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:fields.get("name"),attendance,guests:attendance==="yes"?Number(fields.get("guests")):0,notes:fields.get("notes"),token})});const result=await response.json() as {error?:string};if(!response.ok)throw Error(result.error||"No pudimos guardar tu respuesta. Inténtalo de nuevo.");setSent(true)}catch(err){setError((err as Error).message||"Revisa tu conexión e inténtalo de nuevo.")}finally{setSending(false)}}
  const dateLabel=settings.eventDate?weddingDate(settings.eventDate).toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric",timeZone:"America/Mexico_City"}):"Fecha por confirmar";
  return <>
- <div className="invitation-content" inert={welcome} aria-hidden={welcome || undefined}>
+ <div className={"invitation-content"+(opening?" is-unveiling":"")} inert={welcome} aria-hidden={welcome || undefined}>
  <a className="skip-link" href="#inicio">Ir a la invitación</a>
  <header className="site-header"><a href="#inicio" className="brand" aria-label="Inicio"><Monogram/><span>{previewOnly?"VISTA PREVIA":"NUESTRA BODA"}</span></a><nav aria-label="Navegación principal"><a href="#historia">Nuestra boda</a><a href="#dia">El gran día</a><a href="#detalles">Los detalles</a></nav><a className="header-rsvp" href="#confirmar">{previewOnly?"Confirmaciones":"Confirmar asistencia"} <ArrowRight size={15}/></a></header>
  <main id="inicio">
