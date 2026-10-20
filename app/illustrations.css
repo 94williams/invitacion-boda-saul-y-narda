@@ -1,0 +1,85 @@
+.section-illustration {
+  display: block;
+  flex: 0 0 auto;
+  width: 160px;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto 22px;
+  color: var(--gold, #a08a60);
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+}
+
+.section-illustration .motif-line {
+  stroke: currentColor;
+  stroke-width: 1.05;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.section-illustration .motif-fine {
+  stroke-width: .72;
+  opacity: .68;
+}
+
+.section-illustration .motif-botanical {
+  color: var(--olive, #85876e);
+}
+
+.section-illustration .motif-botanical .motif-line {
+  stroke-width: .85;
+}
+
+.section-illustration .motif-leaf {
+  fill: #85876e;
+  fill-opacity: .045;
+}
+
+.section-illustration .motif-heart {
+  fill: #a08a60;
+  fill-opacity: .055;
+  stroke-width: .9;
+}
+
+.section-illustration .motif-silk {
+  fill: #a08a60;
+  fill-opacity: .025;
+}
+
+.section-illustration .motif-wash {
+  fill: #a08a60;
+  fill-opacity: .035;
+}
+
+.section-illustration .motif-paper {
+  fill: var(--background, #fffefa);
+  stroke: none;
+}
+
+.section-illustration .motif-ground {
+  opacity: .38;
+  stroke-width: .7;
+}
+
+.illustration-venue { width: 151px; }
+.illustration-details { width: 157px; }
+.illustration-gifts { width: 174px; }
+.illustration-rsvp { width: 165px; }
+
+@media (max-width: 640px) {
+  .section-illustration { width: 143px; margin-bottom: 19px; }
+  .illustration-gifts { width: 160px; }
+  .illustration-venue { width: 139px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-illustration,
+  .section-illustration * {
+    animation: none !important;
+    transition: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
