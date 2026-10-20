@@ -5,8 +5,8 @@ import "./motion.css";
 
 export const metadata: Metadata = {
   title: "Narda & Saúl · Nuestra boda",
-  description: "Elegimos para siempre. Y queremos celebrarlo contigo. Descubre nuestra invitación y confirma tu asistencia.",
-  openGraph: { title: "Narda & Saúl · Nuestra boda", description: "Una historia. Un sí. Toda una vida.", type: "website", locale: "es_MX", images: ["/images/wedding-florals.png"] },
+  description: "Nos casamos y queremos compartir esta alegría contigo. Consulta la fecha, la ubicación y los detalles de nuestra boda.",
+  openGraph: { title: "Narda & Saúl · Nuestra boda", description: "Nos casamos y queremos celebrarlo contigo.", type: "website", locale: "es_MX", images: ["/images/wedding-florals.png"] },
   icons: {
     icon: "/monogram.svg",
     shortcut: "/monogram.svg",
