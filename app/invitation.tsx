@@ -4,10 +4,12 @@ import SoftText from "./SoftText";
 import PhotoGallery from "./PhotoGallery";
 import SectionIllustration from "./SectionIllustration";
 import useInvitationMotion from "./useInvitationMotion";
+import OpeningFlorals from "./OpeningFlorals";
 import { giftRegistryConfig, giftRegistryEntries, type GiftRegistrySettings } from "./gift-registry-config";
 import { ArrowDown, ArrowRight, CalendarDays, Check, ChevronRight, Church, Gift, Heart, Mail, MapPin, Music2, Pause, Share2, Sparkles, Wine, X } from "lucide-react";
 type Settings = { eventDate: string; ceremonyTime: string; receptionTime: string; venueName: string; address: string; mapsUrl: string; audioUrl: string } & GiftRegistrySettings;
 const blank: Settings = { eventDate: "2026-10-31", ceremonyTime: "", receptionTime: "", venueName: "Casa de los Padrinos", address: "", mapsUrl: "https://www.google.com/maps?q=19.291965,-98.853241", audioUrl: "", ...giftRegistryConfig };
+const OPENING_DURATION_MS = 3200;
 function Monogram() { return <span className="monogram" aria-label="Narda y Saúl"><span>N</span><i>&</i><span>S</span></span>; }
 const weddingDate = (value:string) => new Date(value + (value.length===10 ? "T00:00:00-06:00" : /[Zz]|[+-]\d{2}:\d{2}$/.test(value) ? "" : "-06:00"));
 export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}) {
@@ -59,9 +61,9 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
    requestAnimationFrame(()=>heroTitleRef.current?.focus({preventScroll:true}));
   };
   // Let the envelope and page crossfade finish before removing the dialog.
-  openingTimer.current=setTimeout(finish,matchMedia("(prefers-reduced-motion: reduce)").matches?0:1850);
+  openingTimer.current=setTimeout(finish,matchMedia("(prefers-reduced-motion: reduce)").matches?0:OPENING_DURATION_MS);
  }
- function replayOpening(){openingLock.current=false;setOpening(false);setWelcome(true)}
+ function replayOpening(){openingLock.current=false;setOpening(false);window.scrollTo({top:0,behavior:"instant"});setWelcome(true)}
  async function share(){try{if(navigator.share)await navigator.share({title:"Narda & Saúl · Nuestra boda",text:"Nos encantaría compartir este día contigo.",url:location.origin+location.pathname});else{await navigator.clipboard.writeText(location.origin+location.pathname);setToast("Enlace de la invitación copiado.")}}catch(err){if((err as Error).name!=="AbortError")setToast("Comparte la invitación copiando el enlace del navegador.")}}
  function calendar(){
   if(!settings.eventDate)return;
@@ -103,14 +105,18 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
  {toast&&<div className="toast" role="status">{toast}<button onClick={()=>setToast("")} aria-label="Cerrar aviso"><X size={15}/></button></div>}
  </div>
  {welcome&&<div ref={welcomeRef} className={"welcome-overlay"+(opening?" is-opening":"")} role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+  <div className="welcome-atmosphere" aria-hidden="true"><OpeningFlorals position="top"/><OpeningFlorals position="bottom"/><span className="welcome-light"/></div>
   <div className="welcome-card">
    <span className="welcome-caption">UNA INVITACIÓN CON CARIÑO</span>
+   <div className="envelope-stage">
    <div className="envelope" aria-hidden="true">
     <div className="envelope-back"/>
     <div className="envelope-letter"><Monogram/><span>NUESTRA BODA</span><p>Nos casamos.</p></div>
     <div className="envelope-pocket"/>
     <div className="envelope-flap"><svg viewBox="0 0 300 140" preserveAspectRatio="none"><path d="M0 0H300L150 119Z" fill="#faf5e8" stroke="#d9cbb0" strokeWidth=".8"/><path d="M9 4H291L150 111Z" fill="none" stroke="#e8dec9" strokeWidth=".7"/></svg></div>
     <div className="wax-seal"><Monogram/></div>
+    <span className="envelope-shimmer"/>
+   </div>
    </div>
    <h2 id="welcome-title">Narda <em>&</em> Saúl</h2>
    <p>Tenemos la alegría de invitarte<br/>a celebrar nuestra boda.</p>
