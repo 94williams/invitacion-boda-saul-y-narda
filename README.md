@@ -6,7 +6,7 @@ La vista de GitHub Pages permite revisar la invitación, el sobre animado y sus 
 
 Para actualizar la vista de GitHub Pages, ejecutar `pnpm build:preview` y subir la carpeta `docs/`. GitHub Pages se configura sobre `main` y `/docs`. Los secretos, las bases locales y los archivos privados quedan excluidos.
 
-Invitación de boda en blanco cálido y marfil, con acentos champaña. Conserva el recorrido de la invitación de Aldo: apertura, bienvenida, historia, fecha, itinerario, ubicación, interludio, galería, detalles, regalos, confirmación y cierre.
+Invitación de boda en blanco cálido y marfil, con acentos champaña. Conserva el recorrido de la invitación de Aldo: apertura, bienvenida, historia, fecha, itinerario con ceremonia civil, ceremonia religiosa y recepción, ubicación, interludio, galería, detalles, regalos, confirmación y cierre con contacto de WhatsApp.
 
 La apertura ofrece una secuencia de 3,2 segundos: una aproximación suave al sobre, desprendimiento del sello, apertura de la solapa, salida pausada de la tarjeta y fundido hacia la invitación. La sección inicial presenta la fotografía de la pareja con un desenfoque suave y una capa clara para mantener el texto legible. Flores vectoriales crema, champaña y oliva enmarcan la papelería desde arriba y abajo; la luz y las sombras acompañan la apertura sin movimientos continuos. Los nombres y títulos se revelan por letras; los elementos de cada sección aparecen una vez al entrar en pantalla. Siete ilustraciones de papelería acompañan el contenido. El pie permite volver a ver la apertura. Se respetan las preferencias de movimiento reducido con entrada inmediata, se limita el foco al diálogo inicial y se devuelve al título al entrar. El contenido sigue visible si las animaciones no están disponibles.
 
