@@ -32,7 +32,7 @@ La portada `public/images/portada-boda.png` (1200 × 630) y su original SVG incl
 
 En `/admin`, con clave privada, pueden consultar respuestas, buscar nombres, filtrar asistencia, contar invitaciones confirmadas y personas, eliminar registros y exportar CSV para Excel. En Ajustes pueden editar fecha, horarios, lugar, mapa, nombres y enlaces de ambas mesas de regalos, y subir audio MP3, M4A, WAV u OGG de hasta 12 MB. La invitación incluye una canción predeterminada que intenta reproducirse cuando el invitado pulsa «Abrir invitación»; pueden sustituirla desde Ajustes.
 
-Los navegadores bloquean normalmente la reproducción automática con sonido antes de que el invitado interactúe con la página. Por eso, la música comienza al pulsar «Abrir invitación», no al cargar el enlace.
+Al abrir la invitación, la música comienza cuando el invitado pulsa «Abrir invitación». Si vuelve a cargar la página en la misma pestaña después de abrirla, la invitación intenta iniciar la música automáticamente. El navegador puede bloquear el sonido; en ese caso, se puede iniciar desde el botón flotante de música.
 
 La clave se configura mediante el secreto de ejecución `ADMIN_KEY` (mínimo 16 caracteres); no debe incluirse en el repositorio. Para desarrollo, usar `.dev.vars`, que está ignorado por Git. El archivo de acceso entregado al propietario está fuera de este proyecto.
 

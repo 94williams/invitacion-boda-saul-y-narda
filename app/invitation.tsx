@@ -19,6 +19,7 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
  const [opening,setOpening] = useState(false);
  const [introResolved,setIntroResolved] = useState(false);
  const openingLock = useRef(false);
+ const sessionWasOpened = useRef(false);
  const openingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
  const welcomeRef = useRef<HTMLDivElement>(null);
  const heroTitleRef = useRef<HTMLHeadingElement>(null);
@@ -28,10 +29,25 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
  useEffect(()=>{
   const controller = new AbortController();
   if(!previewOnly)fetch("/api/settings", {signal:controller.signal}).then(r=>{if(!r.ok)throw Error();return r.json() as Promise<Settings>}).then(s=>setSettings({...blank,...s,audioUrl:s.audioUrl||blank.audioUrl})).catch(()=>{});
-  setWelcome(!safeRead("sessionStorage","ns-opened"));
+  sessionWasOpened.current=safeRead("sessionStorage","ns-opened")==="1";
+  setWelcome(!sessionWasOpened.current);
   setIntroResolved(true);
   return()=>{controller.abort();if(openingTimer.current)clearTimeout(openingTimer.current)};
  },[previewOnly]);
+ useEffect(()=>{
+  if(!sessionWasOpened.current||!settings.audioUrl||!audio.current)return;
+  let cancelled=false;
+  void audio.current.play().then(()=>{
+   if(!cancelled)setMusic(true);
+  }).catch(error=>{
+   if(cancelled)return;
+   setMusic(false);
+   setToast(error instanceof DOMException&&error.name==="NotAllowedError"
+    ?"El navegador bloqueó la reproducción automática. Toca el botón de música para escucharla."
+    :"No se pudo iniciar la canción automáticamente. Toca el botón de música para intentarlo.");
+  });
+  return()=>{cancelled=true};
+ },[settings.audioUrl]);
  useEffect(()=>{
   if(!welcome)return;
   const dialog=welcomeRef.current;
