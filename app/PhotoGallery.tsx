@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import "./photos.css";
 
 const photos = [
@@ -33,21 +34,35 @@ const photos = [
   },
 ];
 
+type Photo = (typeof photos)[number];
+const portraitOrder = ["narda-saul-02.jpg", "narda-saul-06.jpg", "narda-saul-03.jpg", "narda-saul-04.jpg"];
+const portraitPhotos = portraitOrder.map(file => photos.find(photo => photo.file === file)!);
+const travelPhotos = [photos[0], photos[4]];
+
+function PhotoFrame({ photo }: { photo: Photo }) {
+  return (
+    <figure className="photo-frame">
+      <div className="photo-window" style={{ "--image-ratio": `${photo.width} / ${photo.height}` } as CSSProperties}>
+        <img
+          src={`images/couple/${photo.file}`}
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </figure>
+  );
+}
+
 export default function PhotoGallery() {
   return (
     <div className="photo-gallery" role="group" aria-label="Fotografías de Narda y Saúl">
-      {photos.map((photo, index) => (
-        <figure className={`photo-frame photo-frame-${index + 1}`} key={photo.file}>
-          <img
-            src={`images/couple/${photo.file}`}
-            alt={photo.alt}
-            width={photo.width}
-            height={photo.height}
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
-      ))}
+      {portraitPhotos.map(photo => <PhotoFrame photo={photo} key={photo.file}/>)}
+      <div className="photo-travel-pair">
+        {travelPhotos.map(photo => <PhotoFrame photo={photo} key={photo.file}/>)}
+      </div>
     </div>
   );
 }

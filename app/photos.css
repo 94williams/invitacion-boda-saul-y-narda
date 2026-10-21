@@ -1,57 +1,85 @@
 .photo-gallery {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: start;
-  gap: clamp(18px, 2.2vw, 28px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(22px, 3vw, 36px);
+  max-width: 980px;
+  margin-inline: auto;
   margin-top: 40px;
 }
 
-.photo-gallery > .photo-frame {
+.photo-gallery .photo-frame {
+  position: relative;
   min-width: 0;
   margin: 0;
-  padding: clamp(7px, 1vw, 12px);
-  background: #fffefa;
-  border: 1px solid #e3ddcf;
-  box-shadow: 0 5px 18px #5e51300b;
+  padding: clamp(17px, 2.1vw, 25px);
+  background: linear-gradient(145deg, #fffefa, #f9f6ef);
+  border: 1px solid #cdbfa5;
+  box-shadow: 0 8px 24px #5e51300b, inset 0 0 0 1px #fffefa;
 }
 
-.photo-gallery .photo-frame img {
+.photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid #e3d8c4;
+  pointer-events: none;
+}
+
+.photo-frame::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: #b5a17a;
+  outline: 4px solid #fbf8f1;
+  transform: translateX(-50%) rotate(45deg);
+  pointer-events: none;
+}
+
+.photo-window {
+  aspect-ratio: 4 / 5;
+  min-width: 0;
+  overflow: hidden;
+  background: #fffefa;
+  border: 1px solid #e9e2d5;
+}
+
+.photo-gallery .photo-window img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
   max-width: 100%;
-  background: #f2eee4;
+  background: #fffefa;
 }
 
-@media (min-width: 901px) {
-  .photo-gallery > .photo-frame-1 {
-    margin-top: 28px;
-  }
-
-  .photo-gallery > .photo-frame-3 {
-    margin-top: 28px;
-  }
-
-  .photo-gallery > .photo-frame-5 {
-    margin-top: 28px;
-  }
+.photo-travel-pair {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.055fr) minmax(0, 1.517fr);
+  gap: inherit;
 }
 
-@media (max-width: 900px) {
-  .photo-gallery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
+.photo-travel-pair .photo-window {
+  aspect-ratio: auto;
+  height: clamp(210px, 29vw, 330px);
 }
 
-@media (max-width: 560px) {
+@media (max-width: 600px) {
   .photo-gallery {
     grid-template-columns: minmax(0, 1fr);
-    gap: 24px;
+    gap: 26px;
     margin-top: 30px;
   }
 
-  .photo-gallery > .photo-frame {
-    padding: 10px;
+  .photo-travel-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .photo-travel-pair .photo-window {
+    aspect-ratio: var(--image-ratio);
+    height: auto;
   }
 }
