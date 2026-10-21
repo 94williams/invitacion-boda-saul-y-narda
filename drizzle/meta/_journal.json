@@ -15,6 +15,13 @@
       "when": 1792527341576,
       "tag": "0001_blushing_raider",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792561693356,
+      "tag": "0002_second_gift_registry",
+      "breakpoints": true
     }
   ]
 }
