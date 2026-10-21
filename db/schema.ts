@@ -21,6 +21,8 @@ export const settings = sqliteTable("settings", {
   mapsUrl: text("maps_url").notNull().default(""),
   giftRegistryName: text("gift_registry_name").notNull().default(""),
   giftRegistryUrl: text("gift_registry_url").notNull().default(""),
+  giftRegistryName2: text("gift_registry_name_2").notNull().default(""),
+  giftRegistryUrl2: text("gift_registry_url_2").notNull().default(""),
   audioKey: text("audio_key").notNull().default(""),
   audioType: text("audio_type").notNull().default(""),
   audioUpdatedAt: text("audio_updated_at").notNull().default(""),
