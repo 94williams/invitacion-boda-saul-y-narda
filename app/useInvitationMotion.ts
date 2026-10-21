@@ -13,7 +13,7 @@ export default function useInvitationMotion(ready: boolean) {
     const selector = [
       ".hero-copy > *", ".hero-bottom", ".reveal > .eyebrow", ".reveal h2",
       ".reveal .section-illustration", ".story .section-no", ".story-copy > *",
-      ".day-section > .section-intro", ".itinerary .section-caption", ".itinerary-grid > article",
+      ".day-section > .section-intro", ".itinerary .section-caption", ".itinerary-grid > article", ".itinerary-note",
       ".venue-art", ".venue-copy > p", ".venue-address", ".venue-copy > a", ".venue-copy > .pending-tag",
       ".interlude > *", ".gallery-heading > p", ".gallery-heading .eyebrow", ".photo-gallery .photo-frame",
       ".details-section > .section-shell > .eyebrow", ".details-grid > article",

@@ -362,6 +362,7 @@ h3 { line-height: 1.2; text-wrap: balance; }
 .itinerary-grid p { color: var(--soft); font-size: 13px; line-height: 1.8; }
 .itinerary-grid article { display: flex; flex-direction: column; align-items: center; }
 .time-label { margin-top: auto; padding-top: 18px; }
+.itinerary-note { max-width: 48ch; margin: 28px auto 0; color: var(--soft); font-size: 12px; line-height: 1.8; text-align: center; }
 .venue-arch > span:not(.monogram) {
   position: relative; color: var(--olive); font-size: 10px; line-height: 1.9;
   letter-spacing: .12em; text-align: center; padding-inline: 22px;
@@ -382,6 +383,13 @@ h3 { line-height: 1.2; text-wrap: balance; }
 .rsvp-mini svg { margin-top: 0; }
 .rsvp-mini > span { color: var(--soft); font-size: 11px; line-height: 1.8; }
 .rsvp-form-wrap form { text-align: left; }
+.rsvp-section.section-shell.rsvp-unavailable { align-items: center; }
+.rsvp-pending-card { min-width: 0; padding: 38px 30px; }
+.rsvp-pending-notice { text-align: center; }
+.pending-confirmation-icon { display: grid; place-items: center; width: 58px; height: 58px; border: 1px solid var(--line); border-radius: 50%; color: var(--gold); margin: 0 auto 22px; }
+.rsvp-pending-notice strong { display: block; color: var(--olive); font-size: 10px; line-height: 1.8; letter-spacing: .16em; font-weight: 500; }
+.rsvp-pending-notice h3 { font-size: 31px; line-height: 1.2; margin: 15px auto; max-width: 18ch; }
+.rsvp-pending-notice p { color: var(--soft); font-size: 13px; line-height: 1.9; max-width: 34ch; margin: 0 auto; }
 .rsvp-form-wrap form > .form-intro { color: var(--soft); font-size: 12px; margin-top: 0; line-height: 1.8; }
 .rsvp-form-wrap label,.rsvp-form-wrap legend { color: var(--ink); font-size: 12px; line-height: 1.7; }
 .rsvp-form-wrap label span.optional,.rsvp-form-wrap .optional { color: var(--soft); font-size: 11px; }

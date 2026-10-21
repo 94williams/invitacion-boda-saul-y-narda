@@ -9,6 +9,12 @@
 .gifts-grid h3 { font-size: 34px; margin-bottom: 16px; }
 .gifts-grid article > p { font-size: 13px; line-height: 1.9; color: var(--soft); max-width: 30ch; margin-bottom: 25px; }
 .gifts-grid .button { margin-top: auto; font-size: 12px; gap: 16px; }
+.gift-registry-links { display: grid; gap: 10px; width: 100%; margin-top: auto; }
+.gift-registry-links .button { width: 100%; margin-top: 0; justify-content: space-between; text-align: left; white-space: normal; overflow-wrap: anywhere; min-width: 0; }
+.gift-registry-links .button svg { flex-shrink: 0; }
+.gift-registry-links .button:disabled { opacity: 1; color: var(--soft); background: #f4f0e7; border-color: #d9d3c2; cursor: default; transform: none; }
+.registry-soon { font-size: 10px; flex-shrink: 0; }
+.gift-registry-links + .gift-pending { margin-top: 16px; width: 100%; }
 .gift-pending { border-top: 1px solid var(--line); padding-top: 13px; color: var(--olive); font-size: 11px; line-height: 1.8; margin-top: auto; }
 .envelope-note { font: italic 22px/1.4 'Cormorant Garamond',Georgia,serif; color: var(--soft); margin-top: auto; max-width: 240px; }
 .gifts-note { display: flex; justify-content: center; gap: 8px; align-items: center; font-size: 11px; color: var(--soft); margin-top: 23px; line-height: 1.8; }
