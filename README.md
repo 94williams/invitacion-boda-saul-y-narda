@@ -18,11 +18,19 @@ La galería contiene las seis fotografías de la pareja, retocadas con IA para e
 - Hora de inicio, ceremonia y recepción: por confirmar.
 - Lugar: Casa de los Padrinos.
 - Mapa: https://www.google.com/maps?q=19.291965,-98.853241
-- Mesa de regalos y presente en sobre conviven como opciones voluntarias. El enlace de la mesa está pendiente.
+- Vestimenta: blanco o colores claros.
+- La historia de la pareja celebra cinco años juntos y su decisión de casarse.
+- Dos mesas de regalos y un presente en sobre conviven como opciones voluntarias. Los dos enlaces están pendientes.
+
+## Mesas de regalos y portada para compartir
+
+En GitHub Pages, los únicos datos que hay que sustituir están en `app/gift-registry-config.ts`: nombre y enlace de cada mesa. Pegar enlaces HTTPS, compilar `pnpm build:preview` y subir `docs/`. Cada botón se activa de forma independiente al tener un enlace válido y abre su mesa en otra pestaña. Mientras falta el destino, muestra «Próximamente» y queda deshabilitado.
+
+La portada `public/images/portada-boda.png` (1200 × 630) y su original SVG incluyen monograma, nombres y fecha. Los metadatos del preview y de la aplicación la utilizan al compartir el enlace. La invitación muestra un único aviso de horarios pendientes y, en la vista pública sin backend, una tarjeta de confirmaciones por abrir sin campos editables.
 
 ## Panel de anfitriones
 
-En `/admin`, con clave privada, pueden consultar respuestas, buscar nombres, filtrar asistencia, contar invitaciones confirmadas y personas, eliminar registros y exportar CSV para Excel. En Ajustes pueden editar fecha, horarios, lugar, mapa, mesa de regalos y subir audio MP3, M4A, WAV u OGG de hasta 12 MB.
+En `/admin`, con clave privada, pueden consultar respuestas, buscar nombres, filtrar asistencia, contar invitaciones confirmadas y personas, eliminar registros y exportar CSV para Excel. En Ajustes pueden editar fecha, horarios, lugar, mapa, nombres y enlaces de ambas mesas de regalos, y subir audio MP3, M4A, WAV u OGG de hasta 12 MB.
 
 La clave se configura mediante el secreto de ejecución `ADMIN_KEY` (mínimo 16 caracteres); no debe incluirse en el repositorio. Para desarrollo, usar `.dev.vars`, que está ignorado por Git. El archivo de acceso entregado al propietario está fuera de este proyecto.
 
@@ -42,6 +50,8 @@ Node >=22.13 y pnpm11.25.0. Ejecutar `pnpm install`, `pnpm dev` y `pnpm build`. 
 
 Las bases local y publicada son independientes. Las migraciones son solo de esquema. Los datos iniciales del evento se guardan mediante el panel/API administrativa tras publicar. El sitio nuevo conserva acceso privado del propietario hasta que este pida habilitar acceso a invitados.
 
+La migración `0002_second_gift_registry.sql` añade la segunda mesa sin modificar los datos existentes de la primera. Debe aplicarse junto con las migraciones anteriores antes de publicar esta versión del backend.
+
 ## Pendientes de contenido
 
-Canción, enlace de mesa de regalos, código de vestimenta y horarios. Las ilustraciones florales decorativas acompañan a las fotografías reales de la galería.
+Canción, los dos enlaces de las mesas de regalos y horarios. Las ilustraciones florales decorativas acompañan a las fotografías reales de la galería.
