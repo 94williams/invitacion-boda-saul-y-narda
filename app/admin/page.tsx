@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { ArrowDownToLine, ArrowLeft, CalendarDays, Check, CheckCheck, ChevronRight, Gift, Heart, LoaderCircle, LockKeyhole, LogOut, MapPin, Music2, RefreshCw, Search, Settings2, Trash2, Upload, Users, X } from "lucide-react";
 import styles from "./admin.module.css";
+import type { WeddingSettings } from "../lib/settings";
 
 type Guest = { id: number; name: string; attendance: "yes" | "no"; guests: number; notes: string; createdAt: string; updatedAt: string };
-type WeddingSettings = { eventDate: string; ceremonyTime: string; receptionTime: string; venueName: string; address: string; mapsUrl: string; giftRegistryName: string; giftRegistryUrl: string; audioUrl: string };
-const defaults: WeddingSettings = { eventDate: "", ceremonyTime: "", receptionTime: "", venueName: "", address: "", mapsUrl: "", giftRegistryName: "", giftRegistryUrl: "", audioUrl: "" };
+const defaults: WeddingSettings = { eventDate: "", ceremonyTime: "", receptionTime: "", venueName: "", address: "", mapsUrl: "", giftRegistryName: "", giftRegistryUrl: "", giftRegistryName2: "", giftRegistryUrl2: "", audioUrl: "" };
 class RequestError extends Error { constructor(message: string, public status: number) { super(message); } }
 
 async function api<T>(url: string, options?: RequestInit): Promise<T> {
@@ -40,7 +40,7 @@ export default function AdminPage() {
 
   const load = useCallback(async () => {
     const [guestData, settingsData] = await Promise.all([api<{ guests: Guest[] }>("/api/admin/guests"), api<WeddingSettings>("/api/admin/settings")]);
-    setGuests(guestData.guests); setSettings(settingsData); setAuth("ready");
+    setGuests(guestData.guests); setSettings({ ...defaults, ...settingsData }); setAuth("ready");
   }, []);
 
   useEffect(() => { load().catch(caught => { setAuth("login"); if (!(caught instanceof RequestError && caught.status === 401)) reportError(caught); }); }, [load, reportError]);
@@ -82,7 +82,7 @@ export default function AdminPage() {
   }
   async function saveSettings(event: FormEvent) {
     event.preventDefault(); setBusy("settings"); setError(""); setNotice("");
-    try { const saved = await api<WeddingSettings>("/api/admin/settings", { method: "PUT", ...jsonBody(settings) }); setSettings(saved); setNotice("Los detalles de la invitación se guardaron."); }
+    try { const saved = await api<WeddingSettings>("/api/admin/settings", { method: "PUT", ...jsonBody(settings) }); setSettings({ ...defaults, ...saved }); setNotice("Los detalles de la invitación se guardaron."); }
     catch (caught) { reportError(caught); } finally { setBusy(""); }
   }
   async function uploadAudio() {
@@ -160,9 +160,11 @@ export default function AdminPage() {
             <label>Dirección<textarea rows={3} maxLength={400} placeholder="Agrega la dirección cuando esté confirmada" value={settings.address} onChange={event => field("address", event.target.value)} /></label>
             <label>Enlace de ubicación<input type="url" maxLength={1000} placeholder="https://maps.google.com/…" value={settings.mapsUrl} onChange={event => field("mapsUrl", event.target.value)} /></label><p className={styles.help}>Pega el enlace compartido desde Google Maps.</p>
             <div className={styles.divider} />
-            <p className={styles.formSection}><Gift size={16} /> MESA DE REGALOS</p>
-            <label>Nombre de la mesa · opcional<input type="text" maxLength={120} placeholder="Por ejemplo, Liverpool o Palacio de Hierro" value={settings.giftRegistryName} onChange={event => field("giftRegistryName", event.target.value)} /></label>
-            <label>Enlace de la mesa · opcional<input type="url" maxLength={1000} placeholder="https://…" value={settings.giftRegistryUrl} onChange={event => field("giftRegistryUrl", event.target.value)} /></label><p className={styles.help}>Mientras no agreguen un enlace, la invitación indicará que los detalles se compartirán pronto. La opción de presente en sobre se muestra por separado.</p>
+            <p className={styles.formSection}><Gift size={16} /> MESAS DE REGALOS</p>
+            <label>Nombre de la primera mesa · opcional<input type="text" maxLength={120} placeholder="Nombre de la tienda o de la mesa" value={settings.giftRegistryName} onChange={event => field("giftRegistryName", event.target.value)} /></label>
+            <label>Enlace de la primera mesa · opcional<input type="url" maxLength={1000} placeholder="https://…" value={settings.giftRegistryUrl} onChange={event => field("giftRegistryUrl", event.target.value)} /></label>
+            <label>Nombre de la segunda mesa · opcional<input type="text" maxLength={120} placeholder="Nombre de la tienda o de la mesa" value={settings.giftRegistryName2} onChange={event => field("giftRegistryName2", event.target.value)} /></label>
+            <label>Enlace de la segunda mesa · opcional<input type="url" maxLength={1000} placeholder="https://…" value={settings.giftRegistryUrl2} onChange={event => field("giftRegistryUrl2", event.target.value)} /></label><p className={styles.help}>Pueden agregar hasta dos mesas. Cada enlace debe comenzar con https:// y tendrá su propio botón en la invitación. Mientras falte un enlace, esa opción se mostrará como próxima a compartirse.</p>
             <button type="submit" className={styles.primary} disabled={!!busy}>{busy === "settings" ? <LoaderCircle className={styles.spin} size={16} /> : <Check size={16} />} Guardar detalles</button>
           </div>
         </form>
