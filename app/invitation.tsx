@@ -8,7 +8,7 @@ import OpeningFlorals from "./OpeningFlorals";
 import { giftRegistryConfig, giftRegistryEntries, type GiftRegistrySettings } from "./gift-registry-config";
 import { ArrowDown, ArrowRight, CalendarDays, Check, ChevronRight, Church, Gift, Heart, Mail, MapPin, Music2, Pause, Share2, Sparkles, Wine, X } from "lucide-react";
 type Settings = { eventDate: string; ceremonyTime: string; receptionTime: string; venueName: string; address: string; mapsUrl: string; audioUrl: string } & GiftRegistrySettings;
-const blank: Settings = { eventDate: "2026-10-31", ceremonyTime: "", receptionTime: "", venueName: "Casa de los Padrinos", address: "", mapsUrl: "https://www.google.com/maps?q=19.291965,-98.853241", audioUrl: "", ...giftRegistryConfig };
+const blank: Settings = { eventDate: "2026-10-31", ceremonyTime: "", receptionTime: "", venueName: "Casa de los Padrinos", address: "", mapsUrl: "https://www.google.com/maps?q=19.291965,-98.853241", audioUrl: "audio/nuestra-cancion.mp3", ...giftRegistryConfig };
 const OPENING_DURATION_MS = 3200;
 function Monogram() { return <span className="monogram" aria-label="Narda y Saúl"><span>N</span><i>&</i><span>S</span></span>; }
 const weddingDate = (value:string) => new Date(value + (value.length===10 ? "T00:00:00-06:00" : /[Zz]|[+-]\d{2}:\d{2}$/.test(value) ? "" : "-06:00"));
@@ -27,7 +27,7 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
  const safeWrite = (storage: "localStorage" | "sessionStorage", key:string,value:string) => {try{window[storage].setItem(key,value)}catch{}};
  useEffect(()=>{
   const controller = new AbortController();
-  if(!previewOnly)fetch("/api/settings", {signal:controller.signal}).then(r=>{if(!r.ok)throw Error();return r.json() as Promise<Settings>}).then(s=>setSettings({...blank,...s})).catch(()=>{});
+  if(!previewOnly)fetch("/api/settings", {signal:controller.signal}).then(r=>{if(!r.ok)throw Error();return r.json() as Promise<Settings>}).then(s=>setSettings({...blank,...s,audioUrl:s.audioUrl||blank.audioUrl})).catch(()=>{});
   setWelcome(!safeRead("sessionStorage","ns-opened"));
   setIntroResolved(true);
   return()=>{controller.abort();if(openingTimer.current)clearTimeout(openingTimer.current)};
@@ -101,7 +101,7 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
  </main>
  <footer className="footer"><Monogram/><h2><SoftText text="Gracias por acompañarnos"/><br/><em><SoftText text="con tu cariño."/></em></h2><p>NARDA & SAÚL · CON AMOR, SIEMPRE.</p><div className="footer-bottom"><span>Gracias por formar parte de nuestra vida.</span><button onClick={share}>Compartir invitación <Share2 size={13}/></button><button className="welcome-replay" onClick={replayOpening}>Volver a abrir la invitación <Mail size={13}/></button>{!previewOnly&&<a href="/admin">Acceso de los anfitriones <ArrowRight size={12}/></a>}</div></footer>
  <div className="floating-tools"><button onClick={share} aria-label="Compartir invitación"><Share2 size={17} strokeWidth={1.3}/></button>{settings.audioUrl&&<button onClick={toggleMusic} aria-label={music?"Pausar música":"Reproducir música"} aria-pressed={music} className={music?"playing":""}>{music?<Pause size={17}/>:<Music2 size={18} strokeWidth={1.3}/>}</button>}</div><a className="mobile-rsvp" href="#confirmar">{previewOnly?"Confirmaciones":"Confirmar asistencia"} <ArrowRight size={15}/></a>
- <audio ref={audio} src={settings.audioUrl||undefined} loop preload="none" onError={()=>{if(settings.audioUrl){setMusic(false);setToast("La canción no está disponible en este momento.")}}}/>
+ <audio ref={audio} src={settings.audioUrl||undefined} loop preload="auto" onError={()=>{if(settings.audioUrl){setMusic(false);setToast("La canción no está disponible en este momento.")}}}/>
  {toast&&<div className="toast" role="status">{toast}<button onClick={()=>setToast("")} aria-label="Cerrar aviso"><X size={15}/></button></div>}
  </div>
  {welcome&&<div ref={welcomeRef} className={"welcome-overlay"+(opening?" is-opening":"")} role="dialog" aria-modal="true" aria-labelledby="welcome-title">

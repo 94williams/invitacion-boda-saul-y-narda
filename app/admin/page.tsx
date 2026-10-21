@@ -171,10 +171,10 @@ export default function AdminPage() {
         <aside className={styles.panel}>
           <div className={styles.settingsTitle}><Music2 size={20} /><div><h2>Su canción</h2><p>Una melodía para acompañar la historia.</p></div></div>
           <div className={styles.formBody}>
-            {settings.audioUrl ? <div className={styles.audioPreview}><span className={styles.statusYes}><Check size={12} /> Audio disponible</span><audio key={settings.audioUrl} controls preload="metadata" src={settings.audioUrl} /><button className={styles.textButton} disabled={!!busy} onClick={removeAudio}><Trash2 size={14} /> Quitar canción</button></div> : <div className={styles.audioEmpty}><Music2 size={30} strokeWidth={1.1} /><p>Su historia también tiene una banda sonora.</p></div>}
+            {settings.audioUrl ? <div className={styles.audioPreview}><span className={styles.statusYes}><Check size={12} /> Audio disponible</span><audio key={settings.audioUrl} controls preload="metadata" src={settings.audioUrl} /><button className={styles.textButton} disabled={!!busy} onClick={removeAudio}><Trash2 size={14} /> Quitar canción</button></div> : <div className={styles.audioEmpty}><Music2 size={30} strokeWidth={1.1} /><p>La invitación ya incluye una canción predeterminada.</p></div>}
             <label className={styles.uploadBox}><Upload size={21} /><strong>{audioFile ? audioFile.name : "Elegir archivo de audio"}</strong><span>MP3, M4A, WAV u OGG · hasta 12 MB</span><input type="file" accept=".mp3,.m4a,.wav,.ogg,audio/*" onChange={event => setAudioFile(event.target.files?.[0] || null)} disabled={!!busy} /></label>
             <button className={styles.primary} disabled={!audioFile || !!busy} onClick={uploadAudio}>{busy === "audio" ? <LoaderCircle className={styles.spin} size={16} /> : <Upload size={16} />} {settings.audioUrl ? "Reemplazar canción" : "Subir canción"}</button>
-            <p className={styles.help}>Usen una canción que puedan compartir. El invitado podrá iniciar o pausar la música desde la invitación.</p>
+            <p className={styles.help}>La canción predeterminada comienza al pulsar «Abrir invitación». Si suben otra canción, reemplazará a la predeterminada. Usen un audio que puedan compartir.</p>
           </div>
         </aside>
       </div>}
