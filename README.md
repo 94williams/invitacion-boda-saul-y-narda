@@ -10,7 +10,7 @@ Invitación de boda en blanco cálido y marfil, con acentos champaña. Conserva 
 
 La apertura anima el sello, la solapa y la tarjeta del sobre en una secuencia breve. Los nombres y títulos se revelan por letras; los elementos de cada sección aparecen una vez al entrar en pantalla. Siete ilustraciones de papelería acompañan el contenido. El pie permite volver a ver la apertura. Se respetan las preferencias de movimiento reducido, se limita el foco al diálogo inicial y se devuelve al título al entrar. El contenido sigue visible si las animaciones no están disponibles.
 
-La galería contiene las seis fotografías de la pareja, retocadas con IA para equilibrar luz, color y encuadre. Se muestran completas, con proporciones originales y carga diferida, en tres, dos o una columna según la pantalla. Los archivos JPEG optimizados están en `public/images/couple/` y se copian a `docs/images/couple/` al compilar el preview.
+La galería contiene las seis fotografías de la pareja, retocadas con IA para equilibrar luz, color y encuadre. Las cuatro verticales se agrupan en dos columnas; la lancha y el camello comparten una fila con anchos proporcionales a su formato. En móvil se presentan en una columna. Los marcos marfil de doble línea champaña y el paspartú conservan cada fotografía completa, sin recortar ni estirar. Los archivos JPEG se mantienen en `public/images/couple/` y se copian a `docs/images/couple/` al compilar el preview.
 
 ## Datos del evento
 
