@@ -10,6 +10,8 @@ Invitación de boda en blanco cálido y marfil, con acentos champaña. Conserva 
 
 La apertura anima el sello, la solapa y la tarjeta del sobre en una secuencia breve. Los nombres y títulos se revelan por letras; los elementos de cada sección aparecen una vez al entrar en pantalla. Siete ilustraciones de papelería acompañan el contenido. El pie permite volver a ver la apertura. Se respetan las preferencias de movimiento reducido, se limita el foco al diálogo inicial y se devuelve al título al entrar. El contenido sigue visible si las animaciones no están disponibles.
 
+La galería contiene las seis fotografías de la pareja, retocadas con IA para equilibrar luz, color y encuadre. Se muestran completas, con proporciones originales y carga diferida, en tres, dos o una columna según la pantalla. Los archivos JPEG optimizados están en `public/images/couple/` y se copian a `docs/images/couple/` al compilar el preview.
+
 ## Datos del evento
 
 - Fecha: 31 de octubre de 2026; año asumido del contexto actual.
@@ -42,4 +44,4 @@ Las bases local y publicada son independientes. Las migraciones son solo de esqu
 
 ## Pendientes de contenido
 
-Canción, fotografías reales de la pareja, enlace de mesa de regalos, código de vestimenta y horarios. Las ilustraciones florales decorativas no representan fotografías de la pareja.
+Canción, enlace de mesa de regalos, código de vestimenta y horarios. Las ilustraciones florales decorativas acompañan a las fotografías reales de la galería.
