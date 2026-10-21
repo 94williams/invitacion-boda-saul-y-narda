@@ -15,7 +15,7 @@ export default function useInvitationMotion(ready: boolean) {
       ".reveal .section-illustration", ".story .section-no", ".story-copy > *",
       ".day-section > .section-intro", ".itinerary .section-caption", ".itinerary-grid > article",
       ".venue-art", ".venue-copy > p", ".venue-address", ".venue-copy > a", ".venue-copy > .pending-tag",
-      ".interlude > *", ".gallery-heading > p", ".gallery-heading .eyebrow", ".gallery-grid > div",
+      ".interlude > *", ".gallery-heading > p", ".gallery-heading .eyebrow", ".photo-gallery > figure",
       ".details-section > .section-shell > .eyebrow", ".details-grid > article",
       ".gifts-heading > *", ".gifts-grid > article", ".gifts-note", ".rsvp-copy > *", ".rsvp-form-wrap",
       ".footer > .monogram", ".footer > h2", ".footer > p",
