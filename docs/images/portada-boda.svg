@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fffefa"/>
+  <rect x="30" y="30" width="1140" height="570" fill="#fbf9f3" stroke="#b6a382"/>
+  <rect x="42" y="42" width="1116" height="546" fill="none" stroke="#dfd6c5"/>
+  <g stroke="#b6a382" stroke-width="1.1" fill="none" opacity=".72">
+    <path d="M1040 78c-15 50-28 82-77 114m63-78c-20 0-32-8-38-20 23-1 36 5 38 20zm-10 22c24-1 40-11 46-25-25-1-41 7-46 25zm-13 23c-24 0-39-11-45-27 25 0 40 10 45 27zm-19 20c22 6 42 1 53-12-26-9-44-5-53 12z"/>
+    <path d="M160 552c15-50 28-82 77-114m-63 78c20 0 32 8 38 20-23 1-36-5-38-20zm10-22c-24 1-40 11-46 25 25 1 41-7 46-25zm13-23c24 0 39 11 45 27-25 0-40-10-45-27zm19-20c-22-6-42-1-53 12 26 9 44 5 53-12z"/>
+  </g>
+  <g font-family="Georgia,serif" text-anchor="middle">
+    <text x="600" y="124" font-size="45" fill="#515a49">N<tspan fill="#8a7350" font-size="32" font-style="italic"> &amp; </tspan>S</text>
+    <text x="540" y="301" text-anchor="end" font-size="110" fill="#353b32">Narda</text>
+    <text x="600" y="290" font-size="75" font-style="italic" fill="#8a7350">&amp;</text>
+    <text x="660" y="301" text-anchor="start" font-size="110" fill="#353b32">Saúl</text>
+    <text x="600" y="366" font-size="26" font-style="italic" fill="#626b55">Cinco años de amor, una vida por compartir.</text>
+  </g>
+  <path d="M500 403h87m26 0h87" stroke="#c2b08d"/>
+  <path d="m600 397 4 6-4 6-4-6z" fill="none" stroke="#a58c64"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle" fill="#626b55">
+    <text x="600" y="169" font-size="13" letter-spacing="5">NUESTRA BODA</text>
+    <text x="600" y="458" font-size="23" letter-spacing="4">31 DE OCTUBRE DE 2026</text>
+    <text x="600" y="528" font-size="11" letter-spacing="4">CON ALEGRÍA Y CARIÑO</text>
+  </g>
+</svg>
