@@ -6,7 +6,7 @@ import styles from "./admin.module.css";
 import type { WeddingSettings } from "../lib/settings";
 
 type Guest = { id: number; name: string; attendance: "yes" | "no"; guests: number; notes: string; createdAt: string; updatedAt: string };
-const defaults: WeddingSettings = { eventDate: "", ceremonyTime: "", receptionTime: "", venueName: "", address: "", mapsUrl: "", giftRegistryName: "", giftRegistryUrl: "", giftRegistryName2: "", giftRegistryUrl2: "", audioUrl: "" };
+const defaults: WeddingSettings = { eventDate: "", civilTime: "", ceremonyTime: "", receptionTime: "", venueName: "", address: "", mapsUrl: "", giftRegistryName: "", giftRegistryUrl: "", giftRegistryName2: "", giftRegistryUrl2: "", audioUrl: "" };
 class RequestError extends Error { constructor(message: string, public status: number) { super(message); } }
 
 async function api<T>(url: string, options?: RequestInit): Promise<T> {
@@ -137,7 +137,8 @@ export default function AdminPage() {
           <div className={styles.settingsTitle}><CalendarDays size={20} /><div><h2>Los detalles del encuentro</h2><p>Los campos vacíos se mostrarán como pendientes.</p></div></div>
           <div className={styles.formBody}>
             <div className={styles.formRow}><label>Fecha de la boda<input type="date" value={settings.eventDate.slice(0, 10)} onChange={event => changeEventDate(event.target.value)} /></label><label>Hora de inicio · opcional<input type="time" value={settings.eventDate.includes("T") ? settings.eventDate.slice(11, 16) : ""} disabled={!settings.eventDate} onChange={event => changeEventTime(event.target.value)} /></label></div><p className={styles.help}>Hora de Ciudad de México (UTC−6). Pueden guardar solo la fecha y agregar la hora cuando esté confirmada.</p>
-            <div className={styles.formRow}><label>Hora de ceremonia<input type="time" value={settings.ceremonyTime} onChange={event => field("ceremonyTime", event.target.value)} /></label><label>Hora de recepción<input type="time" value={settings.receptionTime} onChange={event => field("receptionTime", event.target.value)} /></label></div>
+            <div className={styles.formRow}><label>Hora de boda civil<input type="time" value={settings.civilTime} onChange={event => field("civilTime", event.target.value)} /></label><label>Hora de ceremonia religiosa<input type="time" value={settings.ceremonyTime} onChange={event => field("ceremonyTime", event.target.value)} /></label></div>
+            <label>Hora de recepción · opcional<input type="time" value={settings.receptionTime} onChange={event => field("receptionTime", event.target.value)} /></label>
             <div className={styles.divider} />
             <p className={styles.formSection}><MapPin size={16} /> EL LUGAR</p>
             <label>Nombre del lugar<input type="text" maxLength={160} placeholder="Por confirmar" value={settings.venueName} onChange={event => field("venueName", event.target.value)} /></label>

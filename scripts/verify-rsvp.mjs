@@ -14,7 +14,7 @@ let cookie = "";
 let checks = 0;
 const token = randomBytes(32).toString("hex");
 const testName = `=RSVP_TEST_${randomBytes(8).toString("hex")}`;
-const actualSettings = { eventDate: "2026-10-31", ceremonyTime: "", receptionTime: "", venueName: "Casa de los Padrinos", address: "", mapsUrl: "https://www.google.com/maps?q=19.291965,-98.853241", giftRegistryName: "", giftRegistryUrl: "" };
+const actualSettings = { eventDate: "2026-10-31", civilTime: "15:00", ceremonyTime: "16:00", receptionTime: "", venueName: "Casa de los Padrinos", address: "", mapsUrl: "https://www.google.com/maps?q=19.291965,-98.853241", giftRegistryName: "", giftRegistryUrl: "" };
 
 async function call(path, { method = "GET", data, authenticated = true, headers = {}, body } = {}) {
   const requestHeaders = { ...(authenticated && cookie ? { Cookie: cookie } : {}), ...headers };

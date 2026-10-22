@@ -30,7 +30,7 @@ La portada `public/images/portada-boda.png` (1200 × 630) y su original SVG incl
 
 ## Panel de anfitriones
 
-En `/admin`, con clave privada, pueden consultar respuestas, buscar nombres, filtrar asistencia, contar invitaciones confirmadas y personas, eliminar registros y exportar CSV para Excel. En Ajustes pueden editar fecha, horarios, lugar, mapa, nombres y enlaces de ambas mesas de regalos. La invitación incluye una canción predeterminada que intenta reproducirse cuando el invitado pulsa «Abrir invitación». La carga de audio personalizado no está habilitada para evitar almacenamiento adicional.
+En `/admin`, con clave privada, pueden consultar respuestas, buscar nombres, filtrar asistencia, contar invitaciones confirmadas y personas, eliminar registros y exportar CSV para Excel. En Ajustes pueden editar fecha, hora de boda civil, hora de ceremonia religiosa, recepción, lugar, mapa, nombres y enlaces de ambas mesas de regalos. La invitación incluye una canción predeterminada que intenta reproducirse cuando el invitado pulsa «Abrir invitación». La carga de audio personalizado no está habilitada para evitar almacenamiento adicional.
 
 Al abrir la invitación, la música comienza cuando el invitado pulsa «Abrir invitación». Si vuelve a cargar la página en la misma pestaña después de abrirla, la invitación intenta iniciar la música automáticamente. El navegador puede bloquear el sonido; en ese caso, se puede iniciar desde el botón flotante de música.
 
@@ -61,6 +61,8 @@ Node >=22.13 y pnpm11.25.0. Ejecutar `pnpm install`, `pnpm dev` y `pnpm build`. 
 Las bases local y publicada son independientes. Las migraciones son solo de esquema. Los datos iniciales del evento se guardan mediante el panel/API administrativa tras publicar. El sitio nuevo conserva acceso privado del propietario hasta que este pida habilitar acceso a invitados.
 
 La migración `0002_second_gift_registry.sql` añade la segunda mesa sin modificar los datos existentes de la primera. Debe aplicarse junto con las migraciones anteriores antes de publicar esta versión del backend.
+
+La migración `0003_aberrant_xorn.sql` añade la hora de boda civil. Para los ajustes ya publicados, conserva las 15:00 como hora civil y cambia la hora religiosa previamente guardada a las 16:00.
 
 ## Pendientes de contenido
 

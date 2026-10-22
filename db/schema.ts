@@ -13,6 +13,7 @@ export const guests = sqliteTable("guests", {
 
 export const settings = sqliteTable("settings", {
   id: integer("id").primaryKey(),
+  civilTime: text("civil_time").notNull().default(""),
   eventDate: text("event_date").notNull().default(""),
   ceremonyTime: text("ceremony_time").notNull().default(""),
   receptionTime: text("reception_time").notNull().default(""),
