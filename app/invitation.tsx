@@ -172,10 +172,9 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
    </div>
    </div>
    <h2 id="welcome-title">Narda <em>&</em> Saúl</h2>
-   <p>Tenemos la alegría de invitarte<br/>a celebrar nuestra boda.</p>
+   <p>Tenemos la alegría de invitarte a esta celebración.</p>
    <button autoFocus disabled={opening} className="button button-dark" onClick={()=>openInvitation(true)}>{opening?"Abriendo tu invitación…":"Abrir invitación"}<ArrowRight size={15}/></button>
    {settings.audioUrl&&<button disabled={opening} className="welcome-silent" onClick={()=>openInvitation(false)}>Entrar sin música</button>}
-   <span className="welcome-foot">CON CARIÑO, NARDA Y SAÚL</span>
    <span className="opening-status" role="status">{opening?"Abriendo el sobre de tu invitación":""}</span>
   </div>
  </div>}
