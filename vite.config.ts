@@ -29,7 +29,7 @@ const localBindingConfig = {
           binding: d1,
           database_name: weddingDatabaseName,
           database_id: weddingDatabaseId,
-          migrations_dir: "drizzle",
+          migrations_dir: "../../drizzle",
         },
       ]
     : [],
