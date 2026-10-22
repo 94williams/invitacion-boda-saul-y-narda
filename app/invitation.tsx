@@ -96,7 +96,7 @@ export default function Invitation({previewOnly=false}:{previewOnly?:boolean}={}
  const registries = giftRegistryEntries(settings);
  const itinerary = [
   {Icon:Landmark,number:"01",title:"La boda civil",text:"Ante la ley, celebraremos el compromiso de unir nuestras vidas y comenzar esta nueva etapa juntos.",time:settings.civilTime},
-  {Icon:Church,number:"02",title:"La ceremonia religiosa",text:"Con la bendición de Dios, celebraremos nuestra unión en una ceremonia llena de fe, amor y esperanza.",time:settings.ceremonyTime},
+  {Icon:Church,number:"02",title:"La ceremonia religiosa",text:"Con la bendición de nuestros ancestros, celebraremos nuestra unión en una ceremonia llena de fe, amor y esperanza.",time:settings.ceremonyTime},
   {Icon:Wine,number:"03",title:"La recepción",text:"Después de dar el sí, brindaremos y compartiremos la alegría de este día contigo.",time:settings.receptionTime},
  ];
  return <>
