@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
-import { ArrowDownToLine, ArrowLeft, CalendarDays, Check, CheckCheck, ChevronRight, Gift, Heart, LoaderCircle, LockKeyhole, LogOut, MapPin, Music2, RefreshCw, Search, Settings2, Trash2, Users, X } from "lucide-react";
+import { ArrowDownToLine, ArrowLeft, CalendarDays, Check, CheckCheck, ChevronRight, Heart, LoaderCircle, LockKeyhole, LogOut, MapPin, Music2, RefreshCw, Search, Settings2, Trash2, Users, X } from "lucide-react";
 import styles from "./admin.module.css";
 import type { WeddingSettings } from "../lib/settings";
 
@@ -144,10 +144,6 @@ export default function AdminPage() {
             <label>Nombre del lugar<input type="text" maxLength={160} placeholder="Por confirmar" value={settings.venueName} onChange={event => field("venueName", event.target.value)} /></label>
             <label>Dirección<textarea rows={3} maxLength={400} placeholder="Agrega la dirección cuando esté confirmada" value={settings.address} onChange={event => field("address", event.target.value)} /></label>
             <label>Enlace de ubicación<input type="url" maxLength={1000} placeholder="https://maps.google.com/…" value={settings.mapsUrl} onChange={event => field("mapsUrl", event.target.value)} /></label><p className={styles.help}>Pega el enlace compartido desde Google Maps.</p>
-            <div className={styles.divider} />
-            <p className={styles.formSection}><Gift size={16} /> MESA DE REGALOS</p>
-            <label>Nombre de la mesa · opcional<input type="text" maxLength={120} placeholder="Nombre de la tienda o de la mesa" value={settings.giftRegistryName} onChange={event => field("giftRegistryName", event.target.value)} /></label>
-            <label>Enlace de la mesa · opcional<input type="url" maxLength={1000} placeholder="https://…" value={settings.giftRegistryUrl} onChange={event => field("giftRegistryUrl", event.target.value)} /></label><p className={styles.help}>El enlace debe comenzar con https:// y aparecerá como una opción en la invitación.</p>
             <button type="submit" className={styles.primary} disabled={!!busy}>{busy === "settings" ? <LoaderCircle className={styles.spin} size={16} /> : <Check size={16} />} Guardar detalles</button>
           </div>
         </form>

@@ -1,21 +1,12 @@
 .gifts-section { padding-block: 95px; text-align: center; }
 .gifts-heading h2 { margin-top: 18px; margin-bottom: 20px; }
 .gifts-heading > p:last-child { max-width: 58ch; margin-inline: auto; font-size: 13px; color: var(--soft); line-height: 1.9; }
-.gifts-grid { display: grid; grid-template-columns: 1fr 1fr; max-width: 860px; margin: 40px auto 0; border: 1px solid var(--line); background: #faf9f4; }
+.gifts-grid { display: grid; grid-template-columns: minmax(0, 620px); justify-content: center; margin: 40px auto 0; border: 1px solid var(--line); background: #faf9f4; }
 .gifts-grid article { padding: 39px 35px 35px; display: flex; flex-direction: column; align-items: center; }
-.gifts-grid article + article { border-left: 1px solid var(--line); }
 .gift-icon { height: 55px; width: 55px; border: 1px solid #d9d3c2; border-radius: 50%; display: grid; place-items: center; color: var(--gold); margin-bottom: 23px; }
 .gifts-grid .eyebrow { font-size: 10px; letter-spacing: .13em; margin-bottom: 10px; }
 .gifts-grid h3 { font-size: 34px; margin-bottom: 16px; }
 .gifts-grid article > p { font-size: 13px; line-height: 1.9; color: var(--soft); max-width: 30ch; margin-bottom: 25px; }
-.gifts-grid .button { margin-top: auto; font-size: 12px; gap: 16px; }
-.gift-registry-links { display: grid; gap: 10px; width: 100%; margin-top: auto; }
-.gift-registry-links .button { width: 100%; margin-top: 0; justify-content: space-between; text-align: left; white-space: normal; overflow-wrap: anywhere; min-width: 0; }
-.gift-registry-links .button svg { flex-shrink: 0; }
-.gift-registry-links .button:disabled { opacity: 1; color: var(--soft); background: #f4f0e7; border-color: #d9d3c2; cursor: default; transform: none; }
-.registry-soon { font-size: 10px; flex-shrink: 0; }
-.gift-registry-links + .gift-pending { margin-top: 16px; width: 100%; }
-.gift-pending { border-top: 1px solid var(--line); padding-top: 13px; color: var(--olive); font-size: 11px; line-height: 1.8; margin-top: auto; }
 .envelope-note { font: italic 22px/1.4 'Cormorant Garamond',Georgia,serif; color: var(--soft); margin-top: auto; max-width: 240px; }
 .gifts-note { display: flex; justify-content: center; gap: 8px; align-items: center; font-size: 11px; color: var(--soft); margin-top: 23px; line-height: 1.8; }
 .gifts-note svg { flex-shrink: 0; color: var(--gold); }
@@ -23,9 +14,8 @@
   .gifts-section { padding-block: 60px; }
   .gifts-heading h2 { font-size: 42px; }
   .desktop-break { display: none; }
-  .gifts-grid { grid-template-columns: 1fr; margin-top: 30px; }
+  .gifts-grid { grid-template-columns: minmax(0, 1fr); margin-top: 30px; }
   .gifts-grid article { padding: 30px 24px; }
-  .gifts-grid article + article { border-left: 0; border-top: 1px solid var(--line); }
   .gifts-grid h3 { font-size: 32px; }
   .gifts-note { align-items: flex-start; max-width: 36ch; margin-inline: auto; }
   .gifts-note svg { margin-top: 5px; }

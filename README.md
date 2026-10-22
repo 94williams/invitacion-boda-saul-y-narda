@@ -6,7 +6,7 @@ La vista de GitHub Pages permite revisar la invitación, el sobre animado y sus 
 
 Para actualizar la vista de GitHub Pages, ejecutar `pnpm build:preview` y subir la carpeta `docs/`. GitHub Pages se configura sobre `main` y `/docs`. Los secretos, las bases locales y los archivos privados quedan excluidos.
 
-Invitación de boda en blanco cálido y marfil, con acentos champaña. Conserva el recorrido de la invitación de Aldo: apertura, bienvenida, historia, fecha, agradecimiento a padrinos, itinerario con ceremonia civil, ceremonia religiosa y recepción, ubicación, interludio, galería, detalles, regalos, confirmación y cierre con contacto de WhatsApp. Las secciones numeradas mantienen el orden consecutivo: historia, gran día, gratitud, ubicación, recuerdos, pequeños detalles y mesa de regalos.
+Invitación de boda en blanco cálido y marfil, con acentos champaña. Conserva el recorrido de la invitación de Aldo: apertura, bienvenida, historia, fecha, agradecimiento a padrinos, itinerario con ceremonia civil, ceremonia religiosa y recepción, ubicación, interludio, galería, detalles, presente en sobre, confirmación y cierre con contacto de WhatsApp. Las secciones numeradas mantienen el orden consecutivo: historia, gran día, gratitud, ubicación, recuerdos, pequeños detalles y presente en sobre.
 
 La apertura ofrece una secuencia de 3,2 segundos: una aproximación suave al sobre, desprendimiento del sello, apertura de la solapa, salida pausada de la tarjeta y fundido hacia la invitación. La sección inicial presenta la fotografía de la pareja con un desenfoque suave y una capa clara para mantener el texto legible. Flores vectoriales crema, champaña y oliva enmarcan la papelería desde arriba y abajo; la luz y las sombras acompañan la apertura sin movimientos continuos. Los nombres y títulos se revelan por letras; los elementos de cada sección aparecen una vez al entrar en pantalla. La ilustración de gratitud muestra un ramo de trigo junto a las otras ilustraciones de papelería. El pie permite volver a ver la apertura. Se respetan las preferencias de movimiento reducido con entrada inmediata, se limita el foco al diálogo inicial y se devuelve al título al entrar. El contenido sigue visible si las animaciones no están disponibles.
 
@@ -20,17 +20,15 @@ La galería contiene las seis fotografías de la pareja, retocadas con IA para e
 - Mapa: https://www.google.com/maps?q=19.291965,-98.853241
 - Vestimenta: blanco o colores claros.
 - La historia de la pareja celebra cinco años juntos y su decisión de casarse.
-- Una mesa de regalos y un presente en sobre conviven como opciones voluntarias. El enlace de la mesa está pendiente.
+- El presente en sobre es opcional; lo que más desean es celebrar junto a sus invitados.
 
-## Mesas de regalos y portada para compartir
-
-En GitHub Pages, los únicos datos que hay que sustituir están en `app/gift-registry-config.ts`: nombre y enlace de la mesa. Pegar un enlace HTTPS, compilar `pnpm build:preview` y subir `docs/`. El botón se activa al tener un enlace válido y abre la mesa en otra pestaña. Mientras falta el destino, muestra «Próximamente» y queda deshabilitado.
+## Portada para compartir
 
 La portada `public/images/portada-boda.png` (1200 × 630) y su original SVG incluyen monograma, nombres y fecha. Los metadatos del preview y de la aplicación la utilizan al compartir el enlace. La invitación muestra un único aviso de horarios pendientes y, en la vista pública sin backend, una tarjeta de confirmaciones por abrir sin campos editables.
 
 ## Panel de anfitriones
 
-En `/admin`, con clave privada, pueden consultar respuestas, buscar nombres, filtrar asistencia, contar invitaciones confirmadas y personas, eliminar registros y exportar CSV para Excel. En Ajustes pueden editar fecha, hora de boda civil, hora de ceremonia religiosa, recepción, lugar, mapa, nombre y enlace de la mesa de regalos. La invitación incluye una canción predeterminada que intenta reproducirse cuando el invitado pulsa «Abrir invitación». La carga de audio personalizado no está habilitada para evitar almacenamiento adicional.
+En `/admin`, con clave privada, pueden consultar respuestas, buscar nombres, filtrar asistencia, contar invitaciones confirmadas y personas, eliminar registros y exportar CSV para Excel. En Ajustes pueden editar fecha, hora de boda civil, hora de ceremonia religiosa, recepción y datos del lugar. La invitación incluye una canción predeterminada que intenta reproducirse cuando el invitado pulsa «Abrir invitación». La carga de audio personalizado no está habilitada para evitar almacenamiento adicional.
 
 Al abrir la invitación, la música comienza cuando el invitado pulsa «Abrir invitación». Si vuelve a cargar la página en la misma pestaña después de abrirla, la invitación intenta iniciar la música automáticamente. El navegador puede bloquear el sonido; en ese caso, se puede iniciar desde el botón flotante de música.
 
@@ -66,4 +64,4 @@ La migración `0003_aberrant_xorn.sql` añade la hora de boda civil. Para los aj
 
 ## Pendientes de contenido
 
-Canción, enlace de la mesa de regalos y horario de recepción. Las ilustraciones florales decorativas acompañan a las fotografías reales de la galería.
+Canción y horario de recepción. Las ilustraciones florales decorativas acompañan a las fotografías reales de la galería.
