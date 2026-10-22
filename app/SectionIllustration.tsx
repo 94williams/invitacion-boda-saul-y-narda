@@ -1,6 +1,6 @@
 import "./illustrations.css";
 
-type IllustrationKind = "story" | "day" | "venue" | "gallery" | "details" | "gifts" | "rsvp";
+type IllustrationKind = "story" | "day" | "venue" | "gallery" | "details" | "gifts" | "godparents" | "rsvp";
 
 type SectionIllustrationProps = {
   kind: IllustrationKind;
@@ -128,6 +128,19 @@ function Gifts() {
   );
 }
 
+function Godparents() {
+  return (
+    <>
+      <ellipse className="motif-wash" cx="91" cy="74" rx="58" ry="24" />
+      <Line className="motif-silk" d="M43 70C58 60 73 56 88 58C99 55 108 48 113 38C116 32 121 31 126 35C130 39 129 45 125 49L146 47L131 58C138 65 150 70 161 74C141 80 122 76 107 70C91 79 68 81 50 75L39 83Z" />
+      <circle cx="121" cy="39" r="1" fill="currentColor" />
+      <Line className="motif-fine" d="M75 59C71 44 74 29 83 17C97 28 106 42 108 56M55 72C67 73 80 71 91 67M87 59C98 58 108 54 117 48" />
+      <Line className="motif-fine" d="M146 47C152 41 158 36 166 32M153 41C151 36 154 32 159 31C159 36 157 40 153 41ZM159 36C164 38 168 35 169 31C165 29 161 32 159 36ZM164 32C162 27 165 23 169 21C171 25 169 30 164 32Z" />
+      <Line className="motif-ground" d="M44 101C70 98 111 98 139 101" />
+    </>
+  );
+}
+
 function Rsvp() {
   return (
     <>
@@ -147,7 +160,7 @@ function Rsvp() {
   );
 }
 
-const illustrations = { story: Story, day: Day, venue: Venue, gallery: Gallery, details: Details, gifts: Gifts, rsvp: Rsvp };
+const illustrations = { story: Story, day: Day, venue: Venue, gallery: Gallery, details: Details, gifts: Gifts, godparents: Godparents, rsvp: Rsvp };
 
 /** Decorative stationery art. Headings carry the section's accessible description. */
 export default function SectionIllustration({ kind, className = "" }: SectionIllustrationProps) {

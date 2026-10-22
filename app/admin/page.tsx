@@ -145,11 +145,9 @@ export default function AdminPage() {
             <label>Dirección<textarea rows={3} maxLength={400} placeholder="Agrega la dirección cuando esté confirmada" value={settings.address} onChange={event => field("address", event.target.value)} /></label>
             <label>Enlace de ubicación<input type="url" maxLength={1000} placeholder="https://maps.google.com/…" value={settings.mapsUrl} onChange={event => field("mapsUrl", event.target.value)} /></label><p className={styles.help}>Pega el enlace compartido desde Google Maps.</p>
             <div className={styles.divider} />
-            <p className={styles.formSection}><Gift size={16} /> MESAS DE REGALOS</p>
-            <label>Nombre de la primera mesa · opcional<input type="text" maxLength={120} placeholder="Nombre de la tienda o de la mesa" value={settings.giftRegistryName} onChange={event => field("giftRegistryName", event.target.value)} /></label>
-            <label>Enlace de la primera mesa · opcional<input type="url" maxLength={1000} placeholder="https://…" value={settings.giftRegistryUrl} onChange={event => field("giftRegistryUrl", event.target.value)} /></label>
-            <label>Nombre de la segunda mesa · opcional<input type="text" maxLength={120} placeholder="Nombre de la tienda o de la mesa" value={settings.giftRegistryName2} onChange={event => field("giftRegistryName2", event.target.value)} /></label>
-            <label>Enlace de la segunda mesa · opcional<input type="url" maxLength={1000} placeholder="https://…" value={settings.giftRegistryUrl2} onChange={event => field("giftRegistryUrl2", event.target.value)} /></label><p className={styles.help}>Pueden agregar hasta dos mesas. Cada enlace debe comenzar con https:// y tendrá su propio botón en la invitación. Mientras falte un enlace, esa opción se mostrará como próxima a compartirse.</p>
+            <p className={styles.formSection}><Gift size={16} /> MESA DE REGALOS</p>
+            <label>Nombre de la mesa · opcional<input type="text" maxLength={120} placeholder="Nombre de la tienda o de la mesa" value={settings.giftRegistryName} onChange={event => field("giftRegistryName", event.target.value)} /></label>
+            <label>Enlace de la mesa · opcional<input type="url" maxLength={1000} placeholder="https://…" value={settings.giftRegistryUrl} onChange={event => field("giftRegistryUrl", event.target.value)} /></label><p className={styles.help}>El enlace debe comenzar con https:// y aparecerá como una opción en la invitación.</p>
             <button type="submit" className={styles.primary} disabled={!!busy}>{busy === "settings" ? <LoaderCircle className={styles.spin} size={16} /> : <Check size={16} />} Guardar detalles</button>
           </div>
         </form>
