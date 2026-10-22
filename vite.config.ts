@@ -10,6 +10,13 @@ const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
   "00000000-0000-4000-8000-000000000000";
 
 const { d1, r2 } = hostingConfig;
+const weddingDatabaseName =
+  process.env.WEDDING_D1_DATABASE_NAME || "narda-saul-rsvp";
+const weddingDatabaseId =
+  process.env.WEDDING_D1_DATABASE_ID ||
+  SITE_CREATOR_PLACEHOLDER_DATABASE_ID;
+const weddingAudioBucketName =
+  process.env.WEDDING_R2_BUCKET_NAME || "narda-saul-audio";
 
 // macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
@@ -22,8 +29,9 @@ const localBindingConfig = {
     ? [
         {
           binding: d1,
-          database_name: "site-creator-d1",
-          database_id: SITE_CREATOR_PLACEHOLDER_DATABASE_ID,
+          database_name: weddingDatabaseName,
+          database_id: weddingDatabaseId,
+          migrations_dir: "drizzle",
         },
       ]
     : [],
@@ -31,7 +39,7 @@ const localBindingConfig = {
     ? [
         {
           binding: r2,
-          bucket_name: "site-creator-r2",
+          bucket_name: weddingAudioBucketName,
         },
       ]
     : [],

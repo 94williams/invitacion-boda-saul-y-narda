@@ -44,6 +44,14 @@ El formulario es abierto y acepta de 1 a 8 personas. Actualiza una respuesta med
 
 Para un control por familia se recomienda un padrón base, pases asignados y enlaces únicos. Sin padrón base, el panel registra respuestas recibidas pero no puede saber quién aún no responde. Definir también fecha límite de confirmación y reglas para menores.
 
+## Despliegue funcional en Cloudflare
+
+GitHub Pages sirve únicamente la vista previa estática; no recibe ni almacena RSVP. Para publicar la invitación funcional, conectar este repositorio a Cloudflare Workers & Pages con el comando de compilación `pnpm run build` y el comando de despliegue `pnpm run deploy:cloudflare`.
+
+Antes del primer despliegue, crear una base D1 llamada `narda-saul-rsvp` y un bucket R2 llamado `narda-saul-audio`. En los ajustes de compilación del proyecto Cloudflare, configurar `WEDDING_D1_DATABASE_ID` con el ID real de esa base y `WEDDING_R2_BUCKET_NAME` con el nombre exacto del bucket. El ID se incluye en la configuración generada del Worker; no es una contraseña. Configurar `ADMIN_KEY` como secreto de ejecución del Worker, nunca como variable de compilación ni en Git. El comando de despliegue valida que exista el ID D1 real, aplica las migraciones remotas pendientes de `drizzle/` y solo entonces publica.
+
+La URL pública `workers.dev` sirve la invitación y las API desde el mismo origen. El panel de anfitriones está en `/admin` y debe protegerse con el secreto `ADMIN_KEY`. Aplicar las migraciones y configurar el secreto antes de habilitar el sitio para invitados.
+
 ## Desarrollo y verificación
 
 Node >=22.13 y pnpm11.25.0. Ejecutar `pnpm install`, `pnpm dev` y `pnpm build`. Aplicar las migraciones de `drizzle/` al entorno local siguiendo el flujo Sites. El proyecto conserva la integración oficial Vinext/Sites.
