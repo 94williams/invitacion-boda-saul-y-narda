@@ -59,7 +59,7 @@ svg { flex-shrink: 0; vertical-align: middle; }
 .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg,#fffefaed 0%,#fffefac9 42%,#fffefa5c 100%); pointer-events: none; }
 .hero-copy { width: 59%; position: relative; z-index: 1; padding: 0 5% 20px 8.4%; text-align: center; }
 .hero-copy .eyebrow { color: #6f735e; margin-bottom: 20px; font-size: 8px; letter-spacing: .33em; }
-.hero h1 { font-size: clamp(70px,7.9vw,112px); font-weight: 400; letter-spacing: -.06em; white-space: nowrap; line-height: 1.05; margin: 0 0 18px; }
+.hero h1 { color: var(--ink); font-size: clamp(76px,8.5vw,120px); font-weight: 500; letter-spacing: -.06em; white-space: nowrap; line-height: 1.05; margin: 0 0 18px; }
 .hero h1 em { color: var(--gold); font-weight: 400; font-size: .75em; }
 .hero h1 > span { color: var(--gold); font-style: italic; font-weight: 400; font-size: .75em; }
 .hero-rule { display: flex; align-items: center; justify-content: center; gap: 14px; width: 160px; margin: 0 auto 22px; color: var(--gold); }
@@ -250,7 +250,7 @@ footer > h2 { font-size: 34px; margin: 3px 0 18px; }
 }
 @media (max-width:1020px) {
   .site-header { padding: 0 30px; } .site-header nav { gap: 19px; }
-  .hero { height: 620px; } .hero-copy { width: 63%; padding-left: 5%; padding-right: 5%; } .hero h1 { font-size: 84px; }
+  .hero { height: 620px; } .hero-copy { width: 63%; padding-left: 5%; padding-right: 5%; } .hero h1 { font-size: 90px; }
   .section-shell { width: calc(100% - 64px); } .story { gap: 60px; } .venue { gap: 50px; }
   .rsvp-section > .section-shell,.rsvp-section.section-shell { gap: 55px; } .gallery-grid > div { height: 270px; } .rsvp-form-wrap { padding: 27px; }
 }
@@ -265,7 +265,7 @@ footer > h2 { font-size: 34px; margin: 3px 0 18px; }
   .hero-image { object-position: 64% bottom; background-position: 64% bottom; }
   .hero::after { background: linear-gradient(180deg,#fcf9f2ed 0%,#fcf9f2d9 28%,#fcf9f280 58%,#fcf9f245 100%); }
   .hero-copy { width: 100%; padding: 60px 24px 0; } .hero-copy .eyebrow { font-size: 7px; margin-bottom: 17px; }
-  .hero h1 { font-size: clamp(66px,11vw,84px); margin-bottom: 15px; }
+  .hero h1 { font-size: clamp(70px,12vw,90px); margin-bottom: 15px; }
   .hero-rule { width: 140px; margin-bottom: 16px; } .hero-subtitle { font-size: 23px; margin-bottom: 11px; }
   .hero-date { font-size: 8px; margin-bottom: 24px; }
   .hero-bottom { bottom: 20px; font-size: 6px; background: #fffefa9c; width: max-content; padding: 5px 10px; margin: auto; }
@@ -317,7 +317,7 @@ footer > h2 { font-size: 34px; margin: 3px 0 18px; }
 }
 @media (max-width:380px) {
   .site-header { padding: 0 15px; } .brand > span:not(.monogram) { display: none; }
-  .hero { height: 700px; } .hero-copy { padding-inline: 15px; padding-top: 53px; } .hero h1 { font-size: 64px; } .hero-subtitle { font-size: 21px; }
+  .hero { height: 700px; } .hero-copy { padding-inline: 15px; padding-top: 53px; } .hero h1 { font-size: 68px; } .hero-subtitle { font-size: 21px; }
   .section-shell { width: calc(100% - 40px); } .rsvp-form-wrap { padding-inline: 17px; } .attendance-options button { font-size: 9px; } .countdown > div { min-width: 64px; }
 }
 @media (prefers-reduced-motion:reduce) {
@@ -419,7 +419,7 @@ footer > p { color: var(--olive); font-size: 11px; }
 }
 @media (max-width:380px) {
   .hero-copy { padding-inline: 20px; }
-  .hero h1 { font-size: clamp(48px,16vw,60px); }
+  .hero h1 { font-size: clamp(52px,17vw,64px); }
   .hero-subtitle { font-size: 22px; }
   .attendance-options { grid-template-columns: 1fr; }
 }
