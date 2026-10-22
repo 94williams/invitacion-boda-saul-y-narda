@@ -12,7 +12,6 @@ if (!rawKey) throw new Error("The ignored local .dev.vars must configure ADMIN_K
 const password = rawKey.startsWith('"') ? JSON.parse(rawKey) : rawKey.startsWith("'") ? rawKey.slice(1, -1) : rawKey;
 let cookie = "";
 let checks = 0;
-let uploadedTestAudio = false;
 const token = randomBytes(32).toString("hex");
 const testName = `=RSVP_TEST_${randomBytes(8).toString("hex")}`;
 const actualSettings = { eventDate: "2026-10-31", ceremonyTime: "", receptionTime: "", venueName: "Casa de los Padrinos", address: "", mapsUrl: "https://www.google.com/maps?q=19.291965,-98.853241", giftRegistryName: "", giftRegistryUrl: "" };
@@ -39,16 +38,6 @@ async function expectTestGuest(attendance, people) {
   assert.equal(rows[0].guests, people);
   checks += 3;
 }
-function waveFile() {
-  const samples = 8;
-  const bytes = Buffer.alloc(44 + samples * 2);
-  bytes.write("RIFF", 0); bytes.writeUInt32LE(bytes.length - 8, 4); bytes.write("WAVE", 8);
-  bytes.write("fmt ", 12); bytes.writeUInt32LE(16, 16); bytes.writeUInt16LE(1, 20); bytes.writeUInt16LE(1, 22);
-  bytes.writeUInt32LE(8000, 24); bytes.writeUInt32LE(16000, 28); bytes.writeUInt16LE(2, 32); bytes.writeUInt16LE(16, 34);
-  bytes.write("data", 36); bytes.writeUInt32LE(samples * 2, 40);
-  return bytes;
-}
-
 try {
   await expectStatus(await call("/api/admin/guests", { authenticated: false }), 401, "Guest list requires login");
   await expectStatus(await call("/api/admin/export", { authenticated: false }), 401, "CSV export requires login");
@@ -78,38 +67,14 @@ try {
   assert.ok(csv.includes('"\'=2+2"'), "CSV escapes a formula in the notes");
   assert.ok(csv.includes('"No asistirá","0"'), "CSV contains final attendance and guest count"); checks += 3;
 
-  const bytes = waveFile();
-  const form = new FormData(); form.append("file", new File([bytes], "integration-test.wav", { type: "audio/wav" }));
-  const upload = await expectStatus(await call("/api/admin/audio", { method: "POST", body: form }), 200, "Upload generated audio");
-  const uploaded = await upload.json(); uploadedTestAudio = true;
-  assert.ok(uploaded.audioUrl.startsWith("/api/audio?"), "Upload returns public playback route"); checks++;
-  const audioSettings = await (await call("/api/settings", { authenticated: false })).json();
-  assert.equal(audioSettings.audioUrl, uploaded.audioUrl, "Public settings include uploaded audio"); checks++;
-  const audio = await expectStatus(await call(uploaded.audioUrl, { authenticated: false }), 200, "Public audio playback");
-  assert.equal(audio.headers.get("content-type"), "audio/wav");
-  assert.deepEqual(Buffer.from(await audio.arrayBuffer()), bytes, "Playback bytes match upload"); checks += 2;
-  const range = await expectStatus(await call(uploaded.audioUrl, { authenticated: false, headers: { Range: "bytes=0-7" } }), 206, "Audio supports byte ranges");
-  assert.equal(range.headers.get("content-range"), `bytes 0-7/${bytes.length}`);
-  assert.deepEqual(Buffer.from(await range.arrayBuffer()), bytes.subarray(0, 8), "Audio range bytes match"); checks += 2;
-  const suffix = await expectStatus(await call(uploaded.audioUrl, { authenticated: false, headers: { Range: "bytes=-4" } }), 206, "Audio supports suffix ranges");
-  assert.equal(suffix.headers.get("content-range"), `bytes ${bytes.length - 4}-${bytes.length - 1}/${bytes.length}`);
-  assert.deepEqual(Buffer.from(await suffix.arrayBuffer()), bytes.subarray(bytes.length - 4), "Audio suffix bytes match"); checks += 2;
-  const openEnded = await expectStatus(await call(uploaded.audioUrl, { authenticated: false, headers: { Range: "bytes=8-" } }), 206, "Audio supports open-ended ranges");
-  assert.deepEqual(Buffer.from(await openEnded.arrayBuffer()), bytes.subarray(8), "Open-ended audio range bytes match"); checks++;
-  const invalidRange = await expectStatus(await call(uploaded.audioUrl, { authenticated: false, headers: { Range: `bytes=${bytes.length}-` } }), 416, "Unsatisfiable audio range is rejected");
-  assert.equal(invalidRange.headers.get("content-range"), `bytes */${bytes.length}`); checks++;
-  await expectStatus(await call(uploaded.audioUrl, { authenticated: false, headers: { Range: "bytes=broken" } }), 416, "Malformed audio range is rejected");
-  await expectStatus(await call("/api/admin/audio", { method: "DELETE" }), 200, "Remove generated audio"); uploadedTestAudio = false;
-  const afterAudio = await (await call("/api/settings", { authenticated: false })).json();
-  assert.equal(afterAudio.audioUrl, "", "No test audio remains"); checks++;
-  await expectStatus(await call("/api/audio", { authenticated: false }), 404, "Removed audio is unavailable");
+  await expectStatus(await call("/api/admin/audio", { method: "POST", body: new FormData() }), 503, "Custom audio upload remains disabled without R2");
+  await expectStatus(await call("/api/audio", { authenticated: false }), 404, "No uploaded audio is exposed without R2");
 } finally {
   if (cookie) {
-    if (uploadedTestAudio) await expectStatus(await call("/api/admin/audio", { method: "DELETE" }), 200, "Clean up owned test audio");
     const rows = (await guestRows()).filter(row => row.name === testName);
     for (const row of rows) await expectStatus(await call("/api/admin/guests", { method: "DELETE", data: { id: row.id } }), 200, "Clean up owned test RSVP");
     const remaining = (await guestRows()).filter(row => row.name === testName);
     assert.equal(remaining.length, 0, "No test RSVPs remain"); checks++;
   }
 }
-console.log(`PASS: ${checks} local API integration checks. Test RSVP/audio removed; actual wedding settings preserved.`);
+console.log(`PASS: ${checks} local API integration checks. Test RSVPs removed; actual wedding settings preserved.`);

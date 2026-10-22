@@ -2,7 +2,7 @@
 
 [Ver la vista previa desplegada](https://94williams.github.io/invitacion-boda-saul-y-narda/)
 
-La vista de GitHub Pages permite revisar la invitación, el sobre animado y sus secciones. Es una vista previa de diseño: no recoge confirmaciones ni ofrece acceso al panel. El proyecto completo, incluido el backend de confirmaciones y audio, está en este repositorio. El despliegue del backend sigue pendiente por un bloqueo de aprobación del publicador; no se muestra una confirmación falsa ni se envían datos desde la vista previa.
+La vista de GitHub Pages permite revisar la invitación, el sobre animado y sus secciones. Es una vista previa de diseño: no recoge confirmaciones ni ofrece acceso al panel. El proyecto completo, incluido el backend de confirmaciones, está en este repositorio. Las respuestas no se envían ni se guardan desde GitHub Pages.
 
 Para actualizar la vista de GitHub Pages, ejecutar `pnpm build:preview` y subir la carpeta `docs/`. GitHub Pages se configura sobre `main` y `/docs`. Los secretos, las bases locales y los archivos privados quedan excluidos.
 
@@ -30,7 +30,7 @@ La portada `public/images/portada-boda.png` (1200 × 630) y su original SVG incl
 
 ## Panel de anfitriones
 
-En `/admin`, con clave privada, pueden consultar respuestas, buscar nombres, filtrar asistencia, contar invitaciones confirmadas y personas, eliminar registros y exportar CSV para Excel. En Ajustes pueden editar fecha, horarios, lugar, mapa, nombres y enlaces de ambas mesas de regalos, y subir audio MP3, M4A, WAV u OGG de hasta 12 MB. La invitación incluye una canción predeterminada que intenta reproducirse cuando el invitado pulsa «Abrir invitación»; pueden sustituirla desde Ajustes.
+En `/admin`, con clave privada, pueden consultar respuestas, buscar nombres, filtrar asistencia, contar invitaciones confirmadas y personas, eliminar registros y exportar CSV para Excel. En Ajustes pueden editar fecha, horarios, lugar, mapa, nombres y enlaces de ambas mesas de regalos. La invitación incluye una canción predeterminada que intenta reproducirse cuando el invitado pulsa «Abrir invitación». La carga de audio personalizado no está habilitada para evitar almacenamiento adicional.
 
 Al abrir la invitación, la música comienza cuando el invitado pulsa «Abrir invitación». Si vuelve a cargar la página en la misma pestaña después de abrirla, la invitación intenta iniciar la música automáticamente. El navegador puede bloquear el sonido; en ese caso, se puede iniciar desde el botón flotante de música.
 
@@ -38,7 +38,7 @@ La clave se configura mediante el secreto de ejecución `ADMIN_KEY` (mínimo 16 
 
 ## Confirmaciones
 
-Las respuestas se guardan en D1; el audio en R2. Los invitados no pueden consultar la lista. La sesión del panel usa una cookie firmada, HttpOnly y SameSite Strict. Las mutaciones validan el origen, los campos y los límites de tamaño; la exportación protege contra fórmulas en Excel.
+Las respuestas se guardan en D1. El audio predeterminado forma parte de los archivos estáticos; la carga de audio personalizado está desactivada y no requiere R2. Los invitados no pueden consultar la lista. La sesión del panel usa una cookie firmada, HttpOnly y SameSite Strict. Las mutaciones validan el origen, los campos y los límites de tamaño; la exportación protege contra fórmulas en Excel.
 
 El formulario es abierto y acepta de 1 a 8 personas. Actualiza una respuesta mediante un token de navegador, no mediante el nombre. En otro dispositivo puede generarse un duplicado. Si se bloquea el almacenamiento, el token se conserva solo durante la visita.
 
@@ -48,7 +48,7 @@ Para un control por familia se recomienda un padrón base, pases asignados y enl
 
 GitHub Pages sirve únicamente la vista previa estática; no recibe ni almacena RSVP. Para publicar la invitación funcional, conectar este repositorio a Cloudflare Workers & Pages con el comando de compilación `pnpm run build` y el comando de despliegue `pnpm run deploy:cloudflare`.
 
-Antes del primer despliegue, crear una base D1 llamada `narda-saul-rsvp` y un bucket R2 llamado `narda-saul-audio`. En los ajustes de compilación del proyecto Cloudflare, configurar `WEDDING_D1_DATABASE_ID` con el ID real de esa base y `WEDDING_R2_BUCKET_NAME` con el nombre exacto del bucket. El ID se incluye en la configuración generada del Worker; no es una contraseña. Configurar `ADMIN_KEY` como secreto de ejecución del Worker, nunca como variable de compilación ni en Git. El comando de despliegue valida que exista el ID D1 real, aplica las migraciones remotas pendientes de `drizzle/` y solo entonces publica.
+Antes del primer despliegue, crear una base D1 llamada `narda-saul-rsvp`. En los ajustes de compilación del proyecto Cloudflare, configurar `WEDDING_D1_DATABASE_ID` con el ID real de esa base. El ID se incluye en la configuración generada del Worker; no es una contraseña. Configurar `ADMIN_KEY` como secreto de ejecución del Worker, nunca como variable de compilación ni en Git. No se necesita suscripción R2 para RSVP. El comando de despliegue valida que exista el ID D1 real, aplica las migraciones remotas pendientes de `drizzle/` y solo entonces publica.
 
 La URL pública `workers.dev` sirve la invitación y las API desde el mismo origen. El panel de anfitriones está en `/admin` y debe protegerse con el secreto `ADMIN_KEY`. Aplicar las migraciones y configurar el secreto antes de habilitar el sitio para invitados.
 
@@ -56,7 +56,7 @@ La URL pública `workers.dev` sirve la invitación y las API desde el mismo orig
 
 Node >=22.13 y pnpm11.25.0. Ejecutar `pnpm install`, `pnpm dev` y `pnpm build`. Aplicar las migraciones de `drizzle/` al entorno local siguiendo el flujo Sites. El proyecto conserva la integración oficial Vinext/Sites.
 
-`node scripts/verify-rsvp.mjs --base http://127.0.0.1:5173` verifica autorización, validación, confirmaciones, conteos, CSV y audio contra el entorno local. La prueba crea y elimina únicamente sus registros de prueba; configura los datos reales del evento y requiere `.dev.vars`. Rechaza destinos de producción.
+`node scripts/verify-rsvp.mjs --base http://127.0.0.1:5173` verifica autorización, validación, confirmaciones, conteos y CSV contra el entorno local. También verifica que la carga de audio personalizado permanece deshabilitada sin R2. La prueba crea y elimina únicamente sus registros de prueba; configura los datos reales del evento y requiere `.dev.vars`. Rechaza destinos de producción.
 
 Las bases local y publicada son independientes. Las migraciones son solo de esquema. Los datos iniciales del evento se guardan mediante el panel/API administrativa tras publicar. El sitio nuevo conserva acceso privado del propietario hasta que este pida habilitar acceso a invitados.
 

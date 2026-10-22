@@ -37,13 +37,6 @@ if (
   );
 }
 
-const bucket = config.r2_buckets?.find(({ binding }) => binding === "BUCKET");
-if (!bucket?.bucket_name || bucket.bucket_name === "site-creator-r2") {
-  throw new Error(
-    "Set WEDDING_R2_BUCKET_NAME to the production R2 bucket name and rebuild before deploying.",
-  );
-}
-
 for (const args of [
   [
     "d1",

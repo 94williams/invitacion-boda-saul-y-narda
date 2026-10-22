@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
-import { ArrowDownToLine, ArrowLeft, CalendarDays, Check, CheckCheck, ChevronRight, Gift, Heart, LoaderCircle, LockKeyhole, LogOut, MapPin, Music2, RefreshCw, Search, Settings2, Trash2, Upload, Users, X } from "lucide-react";
+import { ArrowDownToLine, ArrowLeft, CalendarDays, Check, CheckCheck, ChevronRight, Gift, Heart, LoaderCircle, LockKeyhole, LogOut, MapPin, Music2, RefreshCw, Search, Settings2, Trash2, Users, X } from "lucide-react";
 import styles from "./admin.module.css";
 import type { WeddingSettings } from "../lib/settings";
 
@@ -31,7 +31,6 @@ export default function AdminPage() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<Guest | null>(null);
-  const [audioFile, setAudioFile] = useState<File | null>(null);
 
   const reportError = useCallback((caught: unknown) => {
     if (caught instanceof RequestError && caught.status === 401) setAuth("login");
@@ -83,21 +82,6 @@ export default function AdminPage() {
   async function saveSettings(event: FormEvent) {
     event.preventDefault(); setBusy("settings"); setError(""); setNotice("");
     try { const saved = await api<WeddingSettings>("/api/admin/settings", { method: "PUT", ...jsonBody(settings) }); setSettings({ ...defaults, ...saved }); setNotice("Los detalles de la invitación se guardaron."); }
-    catch (caught) { reportError(caught); } finally { setBusy(""); }
-  }
-  async function uploadAudio() {
-    if (!audioFile) return;
-    setBusy("audio"); setError(""); setNotice("");
-    try {
-      if (audioFile.size > 12 * 1024 * 1024) throw new Error("El audio debe pesar hasta 12 MB.");
-      const form = new FormData(); form.append("file", audioFile);
-      const saved = await api<WeddingSettings>("/api/admin/audio", { method: "POST", body: form });
-      setSettings(previous => ({ ...previous, audioUrl: saved.audioUrl })); setAudioFile(null); setNotice("La canción ya está disponible en la invitación.");
-    } catch (caught) { reportError(caught); } finally { setBusy(""); }
-  }
-  async function removeAudio() {
-    setBusy("audio"); setError(""); setNotice("");
-    try { await api("/api/admin/audio", { method: "DELETE" }); setSettings(previous => ({ ...previous, audioUrl: "" })); setNotice("El audio se quitó de la invitación."); }
     catch (caught) { reportError(caught); } finally { setBusy(""); }
   }
   function field(name: keyof WeddingSettings, value: string) { setSettings(previous => ({ ...previous, [name]: value })); }
@@ -171,10 +155,8 @@ export default function AdminPage() {
         <aside className={styles.panel}>
           <div className={styles.settingsTitle}><Music2 size={20} /><div><h2>Su canción</h2><p>Una melodía para acompañar la historia.</p></div></div>
           <div className={styles.formBody}>
-            {settings.audioUrl ? <div className={styles.audioPreview}><span className={styles.statusYes}><Check size={12} /> Audio disponible</span><audio key={settings.audioUrl} controls preload="metadata" src={settings.audioUrl} /><button className={styles.textButton} disabled={!!busy} onClick={removeAudio}><Trash2 size={14} /> Quitar canción</button></div> : <div className={styles.audioEmpty}><Music2 size={30} strokeWidth={1.1} /><p>La invitación ya incluye una canción predeterminada.</p></div>}
-            <label className={styles.uploadBox}><Upload size={21} /><strong>{audioFile ? audioFile.name : "Elegir archivo de audio"}</strong><span>MP3, M4A, WAV u OGG · hasta 12 MB</span><input type="file" accept=".mp3,.m4a,.wav,.ogg,audio/*" onChange={event => setAudioFile(event.target.files?.[0] || null)} disabled={!!busy} /></label>
-            <button className={styles.primary} disabled={!audioFile || !!busy} onClick={uploadAudio}>{busy === "audio" ? <LoaderCircle className={styles.spin} size={16} /> : <Upload size={16} />} {settings.audioUrl ? "Reemplazar canción" : "Subir canción"}</button>
-            <p className={styles.help}>La canción predeterminada comienza al pulsar «Abrir invitación». Si suben otra canción, reemplazará a la predeterminada. Usen un audio que puedan compartir.</p>
+            <div className={styles.audioEmpty}><Music2 size={30} strokeWidth={1.1} /><p>La invitación incluye una canción predeterminada. La carga de audio personalizado está desactivada para evitar almacenamiento adicional.</p></div>
+            <p className={styles.help}>La canción comienza al pulsar «Abrir invitación»; el navegador puede requerir esa interacción para reproducirla.</p>
           </div>
         </aside>
       </div>}
