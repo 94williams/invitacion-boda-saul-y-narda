@@ -111,9 +111,9 @@ svg { flex-shrink: 0; vertical-align: middle; }
 .venue-art::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 85% 20%,#fffefa 0,transparent 55%); }
 .venue-arch { width: 68%; height: 83%; min-height: 315px; border: 1px solid #d2cdbb; border-bottom: 0; border-radius: 200px 200px 0 0; background: linear-gradient(100deg,#f9f7f0,#e8e4d7); box-shadow: inset 9px 0 20px #fffdf699; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .venue-arch::before { content: ""; position: absolute; inset: 13px 13px 0; border: 1px solid #d8d3c2; border-bottom: 0; border-radius: inherit; }
-.venue-arch .monogram { transform: scale(1.65); margin-bottom: 25px; opacity: .7; }
+.venue-arch .monogram { position: relative; z-index: 2; transform: scale(1.65); margin-bottom: 25px; opacity: .7; }
 .venue-arch > span:not(.monogram),.venue-arch > p { font-size: 7px; letter-spacing: .23em; text-transform: uppercase; color: #8d8e77; }
-.venue-flower { position: absolute; width: 200px; height: 270px; bottom: -54px; right: -42px; background: url("/images/wedding-florals.png") right bottom / auto 320px no-repeat; border-radius: 90% 0 0 0; opacity: .9; }
+.venue-flower { position: absolute; z-index: 1; width: 200px; height: 270px; bottom: -54px; right: -42px; background: url("/images/wedding-florals.png") right bottom / auto 320px no-repeat; border-radius: 90% 0 0 0; opacity: .58; filter: blur(1.5px); }
 .venue-copy .section-no { margin-bottom: 22px; }
 .venue-copy h2 { margin-bottom: 23px; }
 .venue-copy > p { color: var(--soft); font-size: 11px; max-width: 330px; }
@@ -169,8 +169,9 @@ svg { flex-shrink: 0; vertical-align: middle; }
 .godparents-grid .eyebrow { color: #969a81; }
 .godparents-grid h3 { margin: 10px 0; font-size: 25px; }
 .godparents-grid p { color: #777e6b; font-family: "Cormorant Garamond",Georgia,serif; font-size: 20px; line-height: 1.65; }
-.godparents-thanks { margin-top: 28px; color: #828675; font-size: 10px; line-height: 1.8; }
+.godparents-thanks { margin-top: 12px; color: #828675; font-size: 10px; line-height: 1.5; }
 .godparents-thanks span { color: #6e775f; font-family: "Cormorant Garamond",Georgia,serif; font-size: 20px; font-style: italic; }
+.godparents-grid .godparents-thanks span { margin-left: 3px; }
 @media (max-width: 720px) {
   .godparents-grid { grid-template-columns: 1fr; }
   .godparents-grid article:not(:last-child) { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -314,8 +315,8 @@ footer > h2 { font-size: 34px; margin: 3px 0 18px; }
   .details-grid p { max-width: 280px; margin-left: auto; margin-right: auto; } .detail-symbol { margin-bottom: 10px; }
   .godparents-section { padding-top: 59px; padding-bottom: 63px; } .godparents-section > h2 { font-size: 37px; }
   .godparents-intro { margin-bottom: 27px; font-size: 10px; } .godparents-grid { grid-template-columns: 1fr; }
-  .godparents-grid article { padding: 25px 13px; } .godparents-grid article:nth-child(odd) { border-right: 0; }
-  .godparents-grid article:nth-child(n+2) { border-top: 1px solid var(--line); }
+  .godparents-grid article { padding: 25px 13px; }
+  .godparents-grid .godparents-thanks { margin-top: 10px; }
   .rsvp-section { padding-top: 59px; padding-bottom: 62px; } .rsvp-section > .section-shell,.rsvp-section.section-shell { grid-template-columns: 1fr; gap: 32px; }
   .rsvp-section.section-shell { padding-inline: 24px; }
   .rsvp-copy { padding-top: 0; } .rsvp-copy h2 { max-width: 300px; } .rsvp-copy > p { max-width: none; }
@@ -385,7 +386,7 @@ h3 { line-height: 1.2; text-wrap: balance; }
 .time-label { margin-top: auto; padding-top: 18px; }
 .itinerary-note { max-width: 48ch; margin: 28px auto 0; color: var(--soft); font-size: 12px; line-height: 1.8; text-align: center; }
 .venue-arch > span:not(.monogram) {
-  position: relative; color: var(--olive); font-size: 10px; line-height: 1.9;
+  position: relative; z-index: 2; color: var(--olive); font-size: 10px; line-height: 1.9;
   letter-spacing: .12em; text-align: center; padding-inline: 22px;
 }
 .venue-address strong { font-size: 15px; color: var(--ink); }
