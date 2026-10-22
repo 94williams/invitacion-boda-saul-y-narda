@@ -230,6 +230,9 @@ footer > .eyebrow { font-size: 7px; }
 footer > h2 { font-size: 34px; margin: 3px 0 18px; }
 .footer-bottom { max-width: 1080px; margin: 34px auto 0; padding-top: 19px; border-top: 1px solid #ececdf; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 7px; color: #b1b4a1; }
 .footer-bottom a:hover { color: var(--olive); }
+.footer-bottom .footer-admin { display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+.footer-bottom .footer-admin svg { flex: 0 0 auto; margin: 0; }
+.footer-bottom .footer-contact { text-align: center; }
 .footer-bottom button { background: none; border: 0; padding: 0; font: inherit; color: inherit; }
 .footer-bottom button svg,.footer-bottom a svg { margin-left: 5px; }
 .floating-tools { position: fixed; bottom: 27px; right: 27px; z-index: 30; display: flex; flex-direction: column; gap: 8px; }
